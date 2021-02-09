@@ -4,7 +4,7 @@ import { GET_TOKEN, LOGOUT, INVENTORY_URL, GET_CURR_USER } from "./actionTypes";
 function loginUser(email, password) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.post(`${INVENTORY_URL}/users/login`, { email, password });
+            const { data } = await axios.post(`${INVENTORY_URL}users/login`, { email, password });
             dispatch(gotToken(data.access_token));
             dispatch(getUser(email, data.access_token));
         }

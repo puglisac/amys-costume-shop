@@ -1,8 +1,12 @@
 
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { InputGroup, InputGroupAddon, Button, Input, Form } from 'reactstrap';
+import { loginUser } from './actions/users';
 
 const LoginForm = (props) => {
+    const dispatch = useDispatch();
+
     const initialState = {
         email: "",
         password: "",
@@ -16,9 +20,20 @@ const LoginForm = (props) => {
         }));
     };
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        const { email, password } = formData;
+        try {
+            dispatch(loginUser(email, password));
+        }
+        catch (e) {
+            alert(e);
+        }
+    }
+
     return (
         <div className="container mt-4 col-md-4">
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <InputGroup>
                     <Input placeholder="email"
                         name="email"
@@ -27,7 +42,8 @@ const LoginForm = (props) => {
                 </InputGroup>
                 <br />
                 <InputGroup>
-                    <Input placeholder="password"
+                    <Input type="password"
+                        placeholder="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange} />
