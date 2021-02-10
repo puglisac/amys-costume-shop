@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
+import ItemsList from "./ItemsList";
 import LoginForm from './LoginForm';
 
 function Routes() {
@@ -17,7 +18,7 @@ function Routes() {
                 </Route>
 
                 <Route exact path="/dashboard">
-                    {currUser ? null : <Redirect to="/" />}
+                    {currUser ? <ItemsList /> : <Redirect to="/" />}
                 </Route>
 
             </Switch>
