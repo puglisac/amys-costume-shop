@@ -23,12 +23,7 @@ const LoginForm = (props) => {
     function handleSubmit(e) {
         e.preventDefault();
         const { email, password } = formData;
-        try {
-            dispatch(loginUser(email, password));
-        }
-        catch (e) {
-            alert(e);
-        }
+        dispatch(loginUser(email, password)).catch(e => alert(e));
     }
 
     return (

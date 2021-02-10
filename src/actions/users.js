@@ -9,7 +9,7 @@ function loginUser(email, password) {
             dispatch(getUser(email, data.access_token));
         }
         catch (e) {
-            alert(e.response.data.msg);
+            throw new Error(e.response.data.msg);
         }
     };
 }
