@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from './actions/users';
+import { useHistory } from 'react-router-dom';
 import {
     Collapse,
     NavbarToggler,
@@ -8,13 +11,21 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Button
 } from 'reactstrap';
 
-const NavMenu = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
+const NavMenu = ({ userEmail, isAdmin }) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
 
+    const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+
+    const logoutUser = () => {
+        dispatch(logout());
+        history.push("/");
+    };
 
     return (
         <div>
@@ -29,19 +40,23 @@ const NavMenu = (props) => {
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>
-                            Options
-              </DropdownToggle>
+                            {userEmail}
+                        </DropdownToggle>
                         <DropdownMenu right>
                             <DropdownItem>
-                                Option 1
-                </DropdownItem>
+                                <NavLink href="#">My Info</NavLink>
+                            </DropdownItem>
                             <DropdownItem>
-                                Option 2
-                </DropdownItem>
+                                <NavLink href="#">My Pull List</NavLink>
+                            </DropdownItem>
+                            {isAdmin ? <DropdownItem>
+                                <NavLink href="#">Manage Users</NavLink>
+                            </DropdownItem> : null}
                             <DropdownItem divider />
                             <DropdownItem>
-                                Reset
-                </DropdownItem>
+                                <Button onClick={logoutUser}
+                                    color="primary">Logout</Button>
+                            </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>
                 </Nav>

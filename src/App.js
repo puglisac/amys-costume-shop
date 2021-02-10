@@ -1,11 +1,11 @@
-import LoginForm from './LoginForm';
+import Routes from './Routes';
 import Navigation from './Navigation';
 
 function App() {
   return (
     <div className="App">
       <Navigation />
-      <LoginForm />
+      <Routes />
     </div>
   );
 }

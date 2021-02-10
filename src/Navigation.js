@@ -5,6 +5,7 @@ import {
   Navbar,
   NavbarBrand,
 } from 'reactstrap';
+import { GET_CURR_USER } from './actions/actionTypes';
 
 const Navigation = (props) => {
 
@@ -14,7 +15,7 @@ const Navigation = (props) => {
     <div>
       <Navbar color="light" light expand="md">
         <NavbarBrand className="text-primary" href="/">Amy's Costume Shop</NavbarBrand>
-        {currUser ? <NavMenu /> : null}
+        {currUser ? <NavMenu userEmail={currUser.email} isAdmin={currUser.is_admin} /> : null}
       </Navbar>
     </div>
   );

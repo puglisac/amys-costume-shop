@@ -22,7 +22,7 @@ function getUser(email, token) {
             dispatch(gotUser(data.user));
         }
         catch (e) {
-            alert(e.response.data.message);
+            throw new Error(e.response.data.msg);
         }
     };
 }
