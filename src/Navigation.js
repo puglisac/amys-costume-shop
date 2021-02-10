@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 
 const Navigation = (props) => {
+
   const { currUser } = useSelector(st => st.currUser);
 
   return (
