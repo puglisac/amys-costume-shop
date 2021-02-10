@@ -54,8 +54,8 @@ const NavMenu = ({ userEmail, isAdmin }) => {
                             </DropdownItem> : null}
                             <DropdownItem divider />
                             <DropdownItem>
-                                <Button onClick={logoutUser}
-                                    color="primary">Logout</Button>
+                                <NavLink className="btn btn-primary text-light" onClick={logoutUser}
+                                    color="primary">Logout</NavLink>
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>

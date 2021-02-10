@@ -11,12 +11,13 @@ function Routes() {
     return (
         <div >
             <Switch>
+
                 <Route exact path="/">
                     {currUser ? <Redirect to="/dashboard" /> : <LoginForm />}
                 </Route>
 
                 <Route exact path="/dashboard">
-
+                    {currUser ? null : <Redirect to="/" />}
                 </Route>
 
             </Switch>

@@ -47,6 +47,7 @@ const LoginForm = (props) => {
                     </InputGroupAddon>
                 </InputGroup>
             </Form>
+            <a href="mailto:alan.puglisi@mtsu.edu?subject=Request%20for%20access&body=I%20am%20requesting%20access%20to%20Amy's%20Costume%20Shop">Request login</a>
         </div>
     );
 };
