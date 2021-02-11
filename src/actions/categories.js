@@ -6,7 +6,7 @@ function getAllCategories(token) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         try {
             const { data } = await axios.get(`${INVENTORY_URL}categories/`, config);
-            dispatch(gotCategories(data.items));
+            dispatch(gotCategories(data.categories));
         }
         catch (e) {
             throw new Error(e.response.data.msg);
@@ -32,7 +32,7 @@ function gotCategories(categories) {
     return { type: GET_CATEGORIES, payload: categories };
 }
 
-function gotNewCategory(cagegory) {
+function gotNewCategory(category) {
     return { type: ADD_CATEGORY, payload: category };
 }
 

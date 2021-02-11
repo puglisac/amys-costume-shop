@@ -26,7 +26,7 @@ const AddItemForm = ({ toggle }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addItem(token, formData));
+        dispatch(addItem(token, formData)).catch(e => alert(e));
         toggle();
     };
 

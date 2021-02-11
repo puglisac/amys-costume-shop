@@ -33,10 +33,10 @@ const NavMenu = ({ userEmail, isAdmin }) => {
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="#">Items</NavLink>
+                        <NavLink href="/items">Items</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">Categories</NavLink>
+                        <NavLink href="/categories">Categories</NavLink>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>
