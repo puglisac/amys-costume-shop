@@ -38,7 +38,8 @@ const AddItemForm = ({ toggle }) => {
                     <Input placeholder="Item name"
                         name="name"
                         value={formData.name}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="location">Location</Label>
@@ -46,7 +47,8 @@ const AddItemForm = ({ toggle }) => {
                         placeholder=" Item location"
                         name="location"
                         value={formData.location}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="description">Description</Label>
@@ -63,7 +65,8 @@ const AddItemForm = ({ toggle }) => {
                         type="number"
                         name="quantity"
                         value={formData.quantity}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="image_path">Image</Label>
