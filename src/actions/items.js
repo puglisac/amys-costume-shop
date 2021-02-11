@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INVENTORY_URL, GET_ITEMS } from "./actionTypes";
+import { INVENTORY_URL, GET_ITEMS, ADD_ITEM } from "./actionTypes";
 
 function getAllItems(token, category_id = null) {
     return async function (dispatch) {
@@ -20,10 +20,26 @@ function getAllItems(token, category_id = null) {
     };
 }
 
+function addItem(token, body) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        try {
+            const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
+            dispatch(gotNewItem(data.item));
+        }
+        catch (e) {
+            throw new Error(e.response.data.msg);
+        }
+    };
+}
+
 
 function gotItems(items) {
     return { type: GET_ITEMS, payload: items };
 }
 
+function gotNewItem(item) {
+    return { type: ADD_ITEM, payload: item };
+}
 
-export { getAllItems };
+export { getAllItems, addItem };

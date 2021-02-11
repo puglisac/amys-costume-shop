@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllItems } from './actions/items';
+import FormModal from './FormModal';
+
 
 const ItemsList = () => {
     const { items } = useSelector(st => st.items);
@@ -13,6 +15,7 @@ const ItemsList = () => {
 
     return (
         <div>
+            <FormModal buttonLabel="Add Item" formType="addItem" />
             {items ? items.map(i => i.name) : "Loading..."}
         </div>
     );
