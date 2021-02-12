@@ -1,21 +1,26 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllItems } from './actions/items';
+import { getUser, removeItemFromPullList } from './actions/users';
 import { Table } from 'reactstrap';
-import FormModal from './FormModal';
-import ItemRow from './ItemRow';
+import PulledRow from './PulledRow';
+import { useParams } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 
-const ItemsList = () => {
-    const { token } = useSelector(st => st.token);
-    const { currUser } = useSelector(st => st.currUser);
-    const { items } = useSelector(st => st.items);
-
+const PullList = () => {
     const dispatch = useDispatch();
+    const { token } = useSelector(st => st.token);
+    const { email } = useParams();
+    const { currUser } = useSelector(st => st.currUser);
+    const { users } = useSelector(st => st.users);
+
+    const handleClick = () => {
+        dispatch(removeItemFromPullList(token, email, "all"));
+    };
 
     useEffect(() => {
-        dispatch(getAllItems(token)).catch(e => alert(e));
-    }, [currUser]);
+        dispatch(getUser(email, token));
+    }, []);
 
     return (
         <div className="container">
@@ -27,18 +32,17 @@ const ItemsList = () => {
                         <th>Location</th>
                         <th>Description</th>
                         <th>Quantity</th>
-                        <th>Pulled?</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items ? items.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
+                    {users ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                 </tbody>
             </Table>
-            {currUser.is_admin ? <FormModal buttonLabel="Add Item" formType="addItem" /> : null}
+            <Button className="btn-danger" onClick={handleClick}>Return All</Button>
         </div>
     );
 };
 
 
 
-export default ItemsList;
+export default PullList;

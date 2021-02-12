@@ -5,11 +5,11 @@ import ItemsList from "./ItemsList";
 import LoginForm from './LoginForm';
 import CategoriesList from './CategoriesList';
 import UserCard from "./UserCard";
+import PullList from './PullList';
 
 function Routes() {
 
     const { currUser } = useSelector((st) => st.currUser);
-    const { items } = useSelector((st) => st.items);
 
     return (
         <div >
@@ -23,12 +23,12 @@ function Routes() {
                     {currUser ? <UserCard /> : <LoginForm />}
                 </Route>
 
-                <Route exact path="/pull-list">
-                    {currUser ? <ItemsList items={currUser.pull_list} /> : <Redirect to="/" />}
+                <Route exact path="/pull-list/:email">
+                    {currUser ? <PullList /> : <Redirect to="/" />}
                 </Route>
 
                 <Route exact path="/items">
-                    {currUser ? <ItemsList items={items} /> : <Redirect to="/" />}
+                    {currUser ? <ItemsList /> : <Redirect to="/" />}
                 </Route>
 
                 <Route exact path="/categories">
