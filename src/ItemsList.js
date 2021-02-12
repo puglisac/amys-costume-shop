@@ -13,7 +13,7 @@ const ItemsList = ({ items }) => {
 
     useEffect(() => {
         dispatch(getAllItems(token)).catch(e => alert(e));
-    }, []);
+    }, [currUser]);
 
     return (
         <div className="container">
