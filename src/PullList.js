@@ -19,7 +19,7 @@ const PullList = () => {
     };
 
     useEffect(() => {
-        dispatch(getUser(email, token));
+        dispatch(getUser(email, token)).catch(e => alert(e));
     }, []);
 
     return (

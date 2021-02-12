@@ -15,7 +15,7 @@ function getAllItems(token, category_id = null) {
 
         }
         catch (e) {
-            throw new Error(e.response.data.msg);
+            throw e;
         }
     };
 }

@@ -35,7 +35,7 @@ function getUser(email, token) {
             dispatch(gotUser(data.user));
         }
         catch (e) {
-            throw new Error(e.response.data.msg);
+            throw e;
         }
     };
 }
@@ -61,7 +61,7 @@ function removeItemFromPullList(token, email, item_id) {
             dispatch(gotUser(data.user));
         }
         catch (e) {
-            alert(e);
+            throw e;
         }
     };
 }
