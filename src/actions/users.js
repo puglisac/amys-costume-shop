@@ -31,7 +31,6 @@ function addItemToPullList(token, email, item_id) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         try {
-            console.log(token);
             const { data } = await axios.patch(`${INVENTORY_URL}users/${email}/add_item`, { item_id }, config);
             dispatch(gotUser(data.user));
         }
