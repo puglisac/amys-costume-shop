@@ -4,11 +4,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import ItemsList from "./ItemsList";
 import LoginForm from './LoginForm';
 import CategoriesList from './CategoriesList';
+import UserCard from "./UserCard";
 
 function Routes() {
-    let home;
-    const { currUser } = useSelector((st) => st.currUser);
 
+    const { currUser } = useSelector((st) => st.currUser);
+    const { items } = useSelector((st) => st.items);
 
     return (
         <div >
@@ -19,11 +20,15 @@ function Routes() {
                 </Route>
 
                 <Route exact path="/dashboard">
-                    {currUser ? <ItemsList /> : <Redirect to="/" />}
+                    {currUser ? <UserCard /> : <LoginForm />}
+                </Route>
+
+                <Route exact path="/pull-list">
+                    {currUser ? <ItemsList items={currUser.pull_list} /> : <Redirect to="/" />}
                 </Route>
 
                 <Route exact path="/items">
-                    {currUser ? <ItemsList /> : <Redirect to="/" />}
+                    {currUser ? <ItemsList items={items} /> : <Redirect to="/" />}
                 </Route>
 
                 <Route exact path="/categories">

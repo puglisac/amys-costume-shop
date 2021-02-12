@@ -6,8 +6,7 @@ import FormModal from './FormModal';
 import ItemRow from './ItemRow';
 
 
-const ItemsList = () => {
-    const { items } = useSelector(st => st.items);
+const ItemsList = ({ items }) => {
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
     const dispatch = useDispatch();
@@ -26,10 +25,11 @@ const ItemsList = () => {
                         <th>Location</th>
                         <th>Description</th>
                         <th>Quantity</th>
+                        <th>Pulled?</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items ? items.map(i => <ItemRow key={i.id} item={i} />) : "Loading..."}
+                    {items ? items.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                 </tbody>
             </Table>
             {currUser.is_admin ? <FormModal buttonLabel="Add Item" formType="addItem" /> : null}

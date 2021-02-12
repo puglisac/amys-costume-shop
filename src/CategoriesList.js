@@ -30,7 +30,7 @@ const CategoriesList = () => {
                     {categories ? categories.map(c => <CategoryRow key={c.id} category={c} />) : "Loading..."}
                 </tbody>
             </Table>
-            {currUser.is_admin ? <FormModal buttonLabel="Add Category" formType="addCategory" /> : null}
+            {currUser.is_admin ? <FormModal buttonLabel="Add Category" formType="addCategories" /> : null}
         </div>
     );
 };

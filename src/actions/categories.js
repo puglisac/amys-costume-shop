@@ -19,7 +19,7 @@ function addCategory(token, body) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         try {
             const { data } = await axios.post(`${INVENTORY_URL}categories/`, body, config);
-            dispatch(gotNewCategory(data.item));
+            dispatch(gotNewCategory(data.category));
         }
         catch (e) {
             throw new Error(e.response.data.msg);

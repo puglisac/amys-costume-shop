@@ -47,7 +47,7 @@ const NavMenu = ({ userEmail, isAdmin }) => {
                                 <NavLink href="#">My Info</NavLink>
                             </DropdownItem>
                             <DropdownItem>
-                                <NavLink href="#">My Pull List</NavLink>
+                                <NavLink href="/pull-list">My Pull List</NavLink>
                             </DropdownItem>
                             {isAdmin ? <DropdownItem>
                                 <NavLink href="#">Manage Users</NavLink>
