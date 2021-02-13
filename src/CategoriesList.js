@@ -27,7 +27,7 @@ const CategoriesList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories ? categories.map(c => <CategoryRow key={c.id} category={c} />) : "Loading..."}
+                    {Array.isArray(categories) ? categories.map(c => <CategoryRow key={c.id} category={c} />) : "Loading..."}
                 </tbody>
             </Table>
             {currUser.is_admin ? <FormModal buttonLabel="Add Category" formType="categories" /> : null}
