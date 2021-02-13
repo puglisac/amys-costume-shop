@@ -7,7 +7,7 @@ import ItemRow from './ItemRow';
 import { getAllCategories } from './actions/categories';
 
 
-const ItemsList = () => {
+const ItemsList = ({ categories }) => {
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
     const { items } = useSelector(st => st.items);
@@ -15,7 +15,7 @@ const ItemsList = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllItems(token)).catch(e => alert(e));
+        dispatch(getAllItems(token, categories)).catch(e => alert(e));
         dispatch(getAllCategories(token)).catch(e => alert(e));
     }, [currUser]);
 

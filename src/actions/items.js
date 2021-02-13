@@ -1,7 +1,7 @@
 import axios from "axios";
 import { INVENTORY_URL, GET_ITEMS, ADD_ITEM } from "./actionTypes";
 
-function getAllItems(token, category_id = null) {
+function getAllItems(token, category_id) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
