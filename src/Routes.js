@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import CategoriesList from './CategoriesList';
 import UserCard from "./UserCard";
 import PullList from './PullList';
+import ItemDetails from './ItemDetails';
 
 function Routes() {
 
@@ -29,6 +30,10 @@ function Routes() {
 
                 <Route exact path="/items">
                     {currUser ? <ItemsList /> : <Redirect to="/" />}
+                </Route>
+
+                <Route exact path="/items/:item_id">
+                    {currUser ? <ItemDetails /> : <Redirect to="/" />}
                 </Route>
 
                 <Route exact path="/categories">

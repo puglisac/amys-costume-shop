@@ -14,9 +14,9 @@ const FormModal = (props) => {
 
     const toggle = () => setModal(!modal);
     let form;
-    if (formType == "addItem") {
-        form = <AddItemForm toggle={toggle} />;
-    } if (formType == "addCategories") {
+    if (formType == "item") {
+        form = <AddItemForm item={props.item} toggle={toggle} />;
+    } if (formType == "categories") {
         form = <AddCategoryForm toggle={toggle} />;
     }
 

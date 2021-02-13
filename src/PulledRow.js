@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RemoveFromListBtn from './RemoveFromListBtn';
 
 const PulledRow = ({ item, currUser }) => {
 
     return (<tr>
         <td>{item.image_path}</td>
-        <th><a href="#">{item.name}</a></th>
+        <th><a href={`items/${item.id}`}>{item.name}</a></th>
         <td>{item.location}</td>
         <td>{item.description}</td>
         <td>{item.quantity}</td>
