@@ -4,18 +4,13 @@ import { INVENTORY_URL, GET_ITEMS, ADD_ITEM } from "./actionTypes";
 function getAllItems(token, category_id = null) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        try {
-            if (category_id) {
-                const { data } = await axios.get(`${INVENTORY_URL}items/?category_id=${category_id}`, config);
-                dispatch(gotItems(data.items));
-            } else {
-                const { data } = await axios.get(`${INVENTORY_URL}items/`, config);
-                dispatch(gotItems(data.items));
-            }
 
-        }
-        catch (e) {
-            throw e;
+        if (category_id) {
+            const { data } = await axios.get(`${INVENTORY_URL}items/?category_id=${category_id}`, config);
+            dispatch(gotItems(data.items));
+        } else {
+            const { data } = await axios.get(`${INVENTORY_URL}items/`, config);
+            dispatch(gotItems(data.items));
         }
     };
 }
@@ -24,40 +19,27 @@ function getAllItems(token, category_id = null) {
 function getOneItem(token, itemId) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        try {
 
-            const { data } = await axios.get(`${INVENTORY_URL}items/${itemId}`, config);
-            dispatch(gotItems(data.item));
-        }
-        catch (e) {
-            throw e;
-        }
+        const { data } = await axios.get(`${INVENTORY_URL}items/${itemId}`, config);
+        dispatch(gotItems(data.item));
     };
 }
 
 function addItem(token, body) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        try {
-            const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
-            dispatch(gotNewItem(data.item));
-        }
-        catch (e) {
-            throw new Error(e.response.data.msg);
-        }
+
+        const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
+        dispatch(gotNewItem(data.item));
     };
 }
 
 function editItem(token, body, itemId) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-        try {
-            const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
-            dispatch(gotItems(data.item));
-        }
-        catch (e) {
-            throw new Error(e.response.data.msg);
-        }
+
+        const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
+        dispatch(gotItems(data.item));
     };
 }
 

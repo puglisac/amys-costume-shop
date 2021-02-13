@@ -62,7 +62,7 @@ const AddItemForm = ({ toggle, item = null }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        formData.categories = formData.categories.toString();
+
         if (item) {
             console.log(formData);
             dispatch(editItem(token, formData, item.id)).catch(e => alert(e));
