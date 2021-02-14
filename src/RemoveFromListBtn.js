@@ -8,7 +8,7 @@ const RemoveFromListBtn = ({ itemId }) => {
     const { token } = useSelector(st => st.token);
     const { users } = useSelector(st => st.users);
     const handleClick = () => {
-        dispatch(removeItemFromPullList(token, users.email, itemId));
+        dispatch(removeItemFromPullList(token, users.email, itemId)).catch(e => alert(e.response.data.message));
     };
 
     return (<Button className="btn-sm" onClick={handleClick}>Return</Button>);

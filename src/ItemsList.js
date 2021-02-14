@@ -13,14 +13,13 @@ const ItemsList = () => {
     const { currUser } = useSelector(st => st.currUser);
     const { items } = useSelector(st => st.items);
     const { category_id } = useParams();
+    const { users } = useSelector(st => st.users);
 
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(getAllItems(token, category_id)).catch(e => alert(e));
-        // dispatch(getAllCategories(token)).catch(e => alert(e));
-    }, [currUser]);
-
+        dispatch(getAllCategories(token)).catch(e => alert(e));
+    }, [currUser, users]);
     return (
         <div className="container">
             <Table className=" mt-4 shadow-sm p-2">

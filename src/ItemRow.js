@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GET_ITEMS } from './actions/actionTypes';
 import AddToPullList from './AddToPullList';
 
 const ItemRow = ({ item, currUser }) => {
 
     let initialState = false;
-    let initialPulledText;
-    if (currUser.is_admin && item.user_email) {
+    let initialPulledText = "Not Available";
+
+    if (currUser.is_admin && item.user) {
+        initialPulledText = item.user.email;
+        // console.log(item);
+    } if (item.user_id) {
         initialState = true;
-        initialPulledText = item.user_email;
-    } else if (item.user_email == currUser.email) {
-        initialState = true;
-        initialPulledText = "Item Added";
     }
+
     const [notAvailable, setNotAvailable] = useState(initialState);
     const [pulledText, setPulledText] = useState(initialPulledText);
+
     const categoriesNameArr = [];
     for (let category of item.categories) {
         categoriesNameArr.push(category.name);
     }
-
 
     return (<tr>
         <td>{item.image_path}</td>
