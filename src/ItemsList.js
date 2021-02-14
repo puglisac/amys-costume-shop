@@ -5,18 +5,20 @@ import { Table } from 'reactstrap';
 import FormModal from './FormModal';
 import ItemRow from './ItemRow';
 import { getAllCategories } from './actions/categories';
+import { useParams } from 'react-router-dom';
 
 
-const ItemsList = ({ categories }) => {
+const ItemsList = () => {
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
     const { items } = useSelector(st => st.items);
+    const { category_id } = useParams();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllItems(token, categories)).catch(e => alert(e));
-        dispatch(getAllCategories(token)).catch(e => alert(e));
+        dispatch(getAllItems(token, category_id)).catch(e => alert(e));
+        // dispatch(getAllCategories(token)).catch(e => alert(e));
     }, [currUser]);
 
     return (

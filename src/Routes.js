@@ -7,6 +7,7 @@ import CategoriesList from './CategoriesList';
 import UserCard from "./UserCard";
 import PullList from './PullList';
 import ItemDetails from './ItemDetails';
+import CategoryHeader from './CategoryHeader';
 
 function Routes() {
 
@@ -38,6 +39,10 @@ function Routes() {
 
                 <Route exact path="/categories">
                     {currUser ? <CategoriesList /> : <Redirect to="/" />}
+                </Route>
+
+                <Route exact path="/categories/:category_id">
+                    {currUser ? <div><CategoryHeader /> <ItemsList /> </div> : <Redirect to="/" />}
                 </Route>
 
             </Switch>

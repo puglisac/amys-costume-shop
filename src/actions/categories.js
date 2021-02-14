@@ -11,6 +11,16 @@ function getAllCategories(token) {
     };
 }
 
+function getOneCategory(token, category_id) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        const { data } = await axios.get(`${INVENTORY_URL}categories/${category_id}`, config);
+        dispatch(gotCategories(data.category));
+
+    };
+}
+
 function addCategory(token, body) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -30,4 +40,4 @@ function gotNewCategory(category) {
     return { type: ADD_CATEGORY, payload: category };
 }
 
-export { getAllCategories, addCategory };
+export { getAllCategories, addCategory, getOneCategory };
