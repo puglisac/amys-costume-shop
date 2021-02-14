@@ -1,7 +1,7 @@
 import React from 'react';
-import { Jumbotron, Button } from 'reactstrap';
+import { Jumbotron } from 'reactstrap';
 
-const UserCard = (props) => {
+const Welcome = (props) => {
     return (
         <div className="container mt-4">
             <Jumbotron>
@@ -13,4 +13,4 @@ const UserCard = (props) => {
     );
 };
 
-export default UserCard;
+export default Welcome;

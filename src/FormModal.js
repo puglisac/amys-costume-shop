@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddItemForm from './AddItemForm';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import AddCategoryForm from './AddCategoryForm';
+import UserForm from './UserForm';
 
 const FormModal = (props) => {
     const {
@@ -9,7 +10,8 @@ const FormModal = (props) => {
         className,
         formType,
         item,
-        category
+        category,
+        user
     } = props;
 
     const [modal, setModal] = useState(false);
@@ -20,6 +22,8 @@ const FormModal = (props) => {
         form = <AddItemForm item={item} toggle={toggle} />;
     } if (formType == "categories") {
         form = <AddCategoryForm toggle={toggle} category={category} />;
+    } if (formType == "user") {
+        form = <UserForm user={user} toggle={toggle} />;
     }
 
     return (

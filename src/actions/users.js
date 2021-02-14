@@ -39,8 +39,23 @@ function addItemToPullList(token, email, item_id) {
 function removeItemFromPullList(token, email, item_id) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-
         const { data } = await axios.patch(`${INVENTORY_URL}users/${email}/remove_item`, { item_id }, config);
+        dispatch(gotUser(data.user));
+    };
+}
+
+function editUser(token, body, email) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const { data } = await axios.patch(`${INVENTORY_URL}users/${email}`, body, config);
+        dispatch(gotUser(data.user));
+    };
+}
+
+function addUser(token, body) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const { data } = await axios.post(`${INVENTORY_URL}users/`, body, config);
         dispatch(gotUser(data.user));
     };
 }
@@ -61,4 +76,4 @@ function logout() {
     return { type: LOGOUT };
 }
 
-export { loginUser, gotToken, logout, addItemToPullList, getCurrUser, removeItemFromPullList, getUser };
+export { loginUser, gotToken, logout, addItemToPullList, getCurrUser, removeItemFromPullList, getUser, editUser, addUser };

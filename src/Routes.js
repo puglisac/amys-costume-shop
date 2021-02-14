@@ -4,10 +4,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import ItemsList from "./ItemsList";
 import LoginForm from './LoginForm';
 import CategoriesList from './CategoriesList';
-import UserCard from "./UserCard";
+import Welcome from "./Welcome";
 import PullList from './PullList';
 import ItemDetails from './ItemDetails';
 import CategoryHeader from './CategoryHeader';
+import UserInfo from "./UserInfo";
 
 function Routes() {
 
@@ -22,7 +23,7 @@ function Routes() {
                 </Route>
 
                 <Route exact path="/dashboard">
-                    {currUser ? <UserCard /> : <LoginForm />}
+                    {currUser ? <Welcome /> : <LoginForm />}
                 </Route>
 
                 <Route exact path="/pull-list/:email">
@@ -43,6 +44,10 @@ function Routes() {
 
                 <Route exact path="/categories/:category_id">
                     {currUser ? <div><CategoryHeader /> <ItemsList /> </div> : <Redirect to="/" />}
+                </Route>
+
+                <Route exact path="/:user_email">
+                    {currUser ? <UserInfo /> : <Redirect to="/" />}
                 </Route>
 
             </Switch>
