@@ -6,7 +6,7 @@ import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } f
 import { getAllCategories } from './actions/categories';
 
 
-const AddItemForm = ({ toggle, item = null }) => {
+const AddItemForm = ({ toggle, item }) => {
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { categories } = useSelector(st => st.categories);

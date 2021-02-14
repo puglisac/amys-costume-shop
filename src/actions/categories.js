@@ -31,6 +31,15 @@ function addCategory(token, body) {
     };
 }
 
+function editCategory(token, body, categoryId) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        const { data } = await axios.patch(`${INVENTORY_URL}categories/${categoryId}`, body, config);
+        dispatch(gotCategories(data.category));
+    };
+}
+
 
 function gotCategories(categories) {
     return { type: GET_CATEGORIES, payload: categories };
@@ -40,4 +49,4 @@ function gotNewCategory(category) {
     return { type: ADD_CATEGORY, payload: category };
 }
 
-export { getAllCategories, addCategory, getOneCategory };
+export { getAllCategories, addCategory, getOneCategory, editCategory };

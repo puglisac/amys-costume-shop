@@ -7,7 +7,9 @@ const FormModal = (props) => {
     const {
         buttonLabel,
         className,
-        formType
+        formType,
+        item,
+        category
     } = props;
 
     const [modal, setModal] = useState(false);
@@ -15,9 +17,9 @@ const FormModal = (props) => {
     const toggle = () => setModal(!modal);
     let form;
     if (formType == "item") {
-        form = <AddItemForm item={props.item} toggle={toggle} />;
+        form = <AddItemForm item={item} toggle={toggle} />;
     } if (formType == "categories") {
-        form = <AddCategoryForm toggle={toggle} />;
+        form = <AddCategoryForm toggle={toggle} category={category} />;
     }
 
     return (

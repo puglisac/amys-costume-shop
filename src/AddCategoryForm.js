@@ -1,17 +1,26 @@
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory } from './actions/categories';
+import { addCategory, editCategory } from './actions/categories';
 import { ModalFooter, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 
 
-const AddCategoryForm = ({ toggle }) => {
+const AddCategoryForm = ({ toggle, category }) => {
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
-    const initialState = {
-        name: "",
-        description: ""
-    };
+    let initialState;
+    if (category) {
+        initialState = {
+
+            name: category.name || "",
+            description: category.description || ""
+        };
+    } else {
+        initialState = {
+            name: "",
+            description: ""
+        };
+    }
     const [formData, setFormData] = useState(initialState);
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,7 +32,12 @@ const AddCategoryForm = ({ toggle }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addCategory(token, formData)).catch(e => alert(e));
+        if (category) {
+            dispatch(editCategory(token, formData, category.id)).catch(e => alert(e));
+        } else {
+            dispatch(addCategory(token, formData)).catch(e => alert(e));
+        }
+
         toggle();
     };
 
