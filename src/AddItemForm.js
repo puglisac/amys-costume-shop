@@ -1,12 +1,12 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, editItem } from './actions/items';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { getAllCategories } from './actions/categories';
 
 
-const AddItemForm = ({ toggle, item }) => {
+const AddItemForm = memo(({ toggle, item }) => {
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { categories } = useSelector(st => st.categories);
@@ -138,6 +138,6 @@ const AddItemForm = ({ toggle, item }) => {
             </Form>
         </div>
     );
-};
+});
 
 export default AddItemForm;

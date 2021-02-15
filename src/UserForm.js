@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser, addUser, getCurrUser, logout } from './actions/users';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
@@ -7,7 +7,7 @@ import { getAllCategories } from './actions/categories';
 import { useHistory } from 'react-router-dom';
 
 
-const UserForm = ({ toggle, user }) => {
+const UserForm = memo(({ toggle, user }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
@@ -107,6 +107,6 @@ const UserForm = ({ toggle, user }) => {
             </Form>
         </div>
     );
-};
+});
 
 export default UserForm;

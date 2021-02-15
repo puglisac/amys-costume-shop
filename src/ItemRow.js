@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { GET_ITEMS } from './actions/actionTypes';
 import AddToPullList from './AddToPullList';
 
-const ItemRow = ({ item, currUser }) => {
-    const { users } = useSelector(st => st.users);
+const ItemRow = memo(({ item, currUser }) => {
     let initialState = false;
     let initialPulledText = "Not Available";
 
-    if (currUser.is_admin && item.user) {
-        initialPulledText = item.user.email;
-        // console.log(item);
-    } if (item.user_id) {
-        initialState = true;
-    }
 
     const [notAvailable, setNotAvailable] = useState(initialState);
     const [pulledText, setPulledText] = useState(initialPulledText);
@@ -26,6 +19,12 @@ const ItemRow = ({ item, currUser }) => {
     useEffect(() => {
         if (!item.user_id) {
             setNotAvailable(false);
+        } else {
+            setNotAvailable(true);
+        }
+
+        if (currUser.is_admin && item.user) {
+            setPulledText(item.user.email);
         }
     }, [item.user_id]);
 
@@ -38,5 +37,5 @@ const ItemRow = ({ item, currUser }) => {
         <td>{item.quantity}</td>
         {notAvailable ? <td>{pulledText}</td> : <AddToPullList itemId={item.id} email={currUser.email} setNotAvailable={setNotAvailable} setText={setPulledText} />}
     </tr>);
-};
+});
 export default ItemRow;

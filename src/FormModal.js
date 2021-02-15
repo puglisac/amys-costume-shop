@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import AddItemForm from './AddItemForm';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import AddCategoryForm from './AddCategoryForm';
 import UserForm from './UserForm';
 
-const FormModal = (props) => {
+const FormModal = memo((props) => {
     const {
         buttonLabel,
         className,
@@ -38,6 +38,6 @@ const FormModal = (props) => {
             </Modal>
         </div>
     );
-};
+});
 
 export default FormModal;

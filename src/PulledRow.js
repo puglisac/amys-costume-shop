@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import RemoveFromListBtn from './RemoveFromListBtn';
 
-const PulledRow = ({ item, currUser }) => {
+const PulledRow = memo(({ item, currUser }) => {
 
     return (<tr>
         <td>{item.image_path}</td>
@@ -11,5 +11,5 @@ const PulledRow = ({ item, currUser }) => {
         <td>{item.quantity}</td>
         {currUser.is_admin ? <RemoveFromListBtn itemId={item.id} /> : null}
     </tr>);
-};
+});
 export default PulledRow;

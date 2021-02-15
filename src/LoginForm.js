@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { InputGroup, InputGroupAddon, Button, Input, Form } from 'reactstrap';
 import { loginUser } from './actions/users';
 
-const LoginForm = (props) => {
+const LoginForm = memo((props) => {
     const dispatch = useDispatch();
 
     const initialState = {
@@ -50,6 +50,6 @@ const LoginForm = (props) => {
             <a href="mailto:alan.puglisi@mtsu.edu?subject=Request%20for%20access&body=I%20am%20requesting%20access%20to%20Amy's%20Costume%20Shop">Request login</a>
         </div>
     );
-};
+});
 
 export default LoginForm;
