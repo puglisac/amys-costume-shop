@@ -14,7 +14,7 @@ const UserInfo = () => {
     const { users } = useSelector(st => st.users);
 
     useEffect(() => {
-        dispatch(getUser(user_email, token)).catch(e => alert(e));
+        dispatch(getUser(user_email, token)).catch((e) => alert(e.response.data.message || "No such user"));
     }, []);
 
     let allowed = true;
