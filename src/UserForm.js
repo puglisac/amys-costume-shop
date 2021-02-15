@@ -27,6 +27,7 @@ const UserForm = memo(({ toggle, user }) => {
             email: "",
             first_name: "",
             last_name: "",
+            password: "",
             is_admin: false
         };
     }
@@ -61,7 +62,7 @@ const UserForm = memo(({ toggle, user }) => {
 
         }
         else {
-            dispatch(addUser(token, formData)).catch(e => alert(e));
+            dispatch(addUser(token, formData)).catch(e => alert(e.response.data.message));
         }
         toggle();
     };
@@ -94,6 +95,15 @@ const UserForm = memo(({ toggle, user }) => {
                         value={formData.last_name}
                         onChange={handleChange} />
                 </FormGroup>
+                {user ? null : <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange} />
+                </FormGroup>}
                 {currUser.is_admin ? <FormGroup>
                     <Label for="is_admin">Admin?</Label>
                     <Input type="select" name="is_admin" id="is_admin" value={formData.is_admin} onChange={handleChange}>

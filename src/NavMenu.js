@@ -50,7 +50,7 @@ const NavMenu = ({ userEmail, isAdmin }) => {
                                 <NavLink href={`/pull-list/${userEmail}`}>My Pull List</NavLink>
                             </DropdownItem>
                             {isAdmin ? <DropdownItem>
-                                <NavLink href="#">Manage Users</NavLink>
+                                <NavLink href="/users">Manage Users</NavLink>
                             </DropdownItem> : null}
                             <DropdownItem divider />
                             <DropdownItem>

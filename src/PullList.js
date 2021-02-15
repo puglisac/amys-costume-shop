@@ -38,7 +38,7 @@ const PullList = () => {
                     {users ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                 </tbody>
             </Table>
-            <Button className="btn-danger" onClick={handleClick}>Return All</Button>
+            {currUser.is_admin ? <Button className="btn-danger" onClick={handleClick}>Return All</Button> : null}
         </div>
     );
 };

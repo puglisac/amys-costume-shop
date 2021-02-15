@@ -22,9 +22,10 @@ const ItemRow = memo(({ item, currUser }) => {
         } else {
             setNotAvailable(true);
         }
-
         if (currUser.is_admin && item.user) {
             setPulledText(item.user.email);
+        } if (item.user && currUser.email == item.user.email) {
+            setPulledText("In your pull-list");
         }
     }, [item.user_id]);
 
@@ -35,7 +36,7 @@ const ItemRow = memo(({ item, currUser }) => {
         <td>{item.description}</td>
         <td>{categoriesNameArr.join(", ")}</td>
         <td>{item.quantity}</td>
-        {notAvailable ? <td>{pulledText}</td> : <AddToPullList itemId={item.id} email={currUser.email} setNotAvailable={setNotAvailable} setText={setPulledText} />}
+        {notAvailable ? <td>{pulledText}</td> : <td><AddToPullList itemId={item.id} email={currUser.email} setNotAvailable={setNotAvailable} setText={setPulledText} /></td>}
     </tr>);
 });
 export default ItemRow;
