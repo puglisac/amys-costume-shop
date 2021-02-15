@@ -62,7 +62,7 @@ const AddCategoryForm = ({ toggle, category }) => {
                         onChange={handleChange} />
                 </FormGroup>
                 <ModalFooter>
-                    <Button color="primary" >Add Item</Button>{' '}
+                    <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
         </div>

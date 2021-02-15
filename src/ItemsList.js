@@ -38,7 +38,7 @@ const ItemsList = () => {
                     {Array.isArray(items) ? items.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                 </tbody>
             </Table>
-            {currUser.is_admin ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
+            {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
         </div>
     );
 };
