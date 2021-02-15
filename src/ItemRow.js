@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { GET_ITEMS } from './actions/actionTypes';
 import AddToPullList from './AddToPullList';
 
 const ItemRow = ({ item, currUser }) => {
-
+    const { users } = useSelector(st => st.users);
     let initialState = false;
     let initialPulledText = "Not Available";
 
@@ -21,6 +22,12 @@ const ItemRow = ({ item, currUser }) => {
     for (let category of item.categories) {
         categoriesNameArr.push(category.name);
     }
+
+    useEffect(() => {
+        if (!item.user_id) {
+            setNotAvailable(false);
+        }
+    }, [item.user_id]);
 
     return (<tr>
         <td>{item.image_path}</td>
