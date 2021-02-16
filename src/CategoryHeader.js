@@ -6,6 +6,7 @@ import { getOneCategory } from './actions/categories';
 import FormModal from './FormModal';
 
 const CategoryHeader = () => {
+    // header for the individual categories page
     const dispatch = useDispatch();
     const { category_id } = useParams();
     const { categories } = useSelector(st => st.categories);

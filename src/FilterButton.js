@@ -2,6 +2,7 @@ import React, { useState, memo } from 'react';
 import { Button } from 'reactstrap';
 
 const FilterButton = memo(({ category, add, remove }) => {
+    // a button that adds or removes the category.id to the filterArray
     const [outlined, setOutlined] = useState(true);
     const addOrRemove = () => {
         if (outlined) {

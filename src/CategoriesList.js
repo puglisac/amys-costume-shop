@@ -8,6 +8,7 @@ import { getAllCategories } from './actions/categories';
 
 
 const CategoriesList = () => {
+    // a list of categories
     const { categories } = useSelector(st => st.categories);
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);

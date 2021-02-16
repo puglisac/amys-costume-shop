@@ -8,6 +8,7 @@ import { Button } from 'reactstrap';
 
 
 const PullList = () => {
+    // a list of items pulled by a user
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { email } = useParams();

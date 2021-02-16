@@ -11,6 +11,7 @@ import CategoryFilter from './CategoryFilter';
 
 
 const ItemsList = () => {
+    // a list of items that can be filtered by categories in the filterArray
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
     const { items } = useSelector(st => st.items);

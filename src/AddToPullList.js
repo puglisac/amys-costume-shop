@@ -4,6 +4,7 @@ import { Button } from 'reactstrap';
 import { addItemToPullList } from './actions/users';
 
 const AddToPullList = memo(({ itemId, email, setNotAvailable, setText }) => {
+    // a button to add an item to a user's pull-list
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const handleClick = () => {

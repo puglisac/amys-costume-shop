@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import FilterButton from './FilterButton';
 
 const CategoryFilter = memo(({ categories, filterArray, setFilterArray }) => {
-
+    // a selection of buttons to filter items by categories
     const addToFilter = useCallback((id) => {
         setFilterArray([...filterArray, id]);
     }, [filterArray]);

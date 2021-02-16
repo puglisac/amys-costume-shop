@@ -16,6 +16,7 @@ import {
 } from 'reactstrap';
 
 const NavMenu = ({ userEmail, isAdmin }) => {
+    // menu items displayed in the navigation header
     const dispatch = useDispatch();
     const history = useHistory();
 

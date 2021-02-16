@@ -4,6 +4,7 @@ import { GET_ITEMS } from './actions/actionTypes';
 import AddToPullList from './AddToPullList';
 
 const ItemRow = memo(({ item, currUser }) => {
+    // a row of item info
     let initialState = false;
     let initialPulledText = "Not Available";
 

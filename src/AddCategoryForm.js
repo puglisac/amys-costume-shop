@@ -6,6 +6,7 @@ import { ModalFooter, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 
 
 const AddCategoryForm = memo(({ toggle, category }) => {
+    // form to add/edit categories
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     let initialState;

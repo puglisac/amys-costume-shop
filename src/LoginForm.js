@@ -5,6 +5,7 @@ import { InputGroup, InputGroupAddon, Button, Input, Form } from 'reactstrap';
 import { loginUser } from './actions/users';
 
 const LoginForm = memo((props) => {
+    // a form for logging in a user
     const dispatch = useDispatch();
 
     const initialState = {

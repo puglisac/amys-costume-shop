@@ -7,6 +7,7 @@ import { getAllCategories } from './actions/categories';
 
 
 const AddItemForm = memo(({ toggle, item }) => {
+    // form to add/edit items
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { categories } = useSelector(st => st.categories);

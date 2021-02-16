@@ -7,6 +7,7 @@ import { getUser } from './actions/users';
 import FormModal from './FormModal';
 
 const UserInfo = () => {
+    // displays user info
     const dispatch = useDispatch();
     const { user_email } = useParams();
     const { token } = useSelector(st => st.token);

@@ -5,6 +5,7 @@ import AddCategoryForm from './AddCategoryForm';
 import UserForm from './UserForm';
 
 const FormModal = memo((props) => {
+    // a modal that displays a form
     const {
         buttonLabel,
         className,

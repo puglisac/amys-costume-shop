@@ -11,6 +11,7 @@ import { getAllUsers } from './actions/users';
 
 
 const UsersList = () => {
+    // a list of all users
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
     const { users } = useSelector(st => st.users);
@@ -31,7 +32,7 @@ const UsersList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(users) ? users.map(u => <UserRow key={u.id} user={u} currUser={currUser} />) : "Loading..."}
+                    {Array.isArray(users) ? users.map(u => <UserRow key={u.id} user={u} />) : "Loading..."}
                 </tbody>
             </Table>
             {currUser.is_admin ? <FormModal buttonLabel="Add User" formType="user" /> : null}

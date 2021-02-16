@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 
 const UserForm = memo(({ toggle, user }) => {
-    const history = useHistory();
+    // form to add/edit a user
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);

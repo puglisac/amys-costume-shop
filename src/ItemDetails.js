@@ -5,6 +5,7 @@ import { getOneItem } from './actions/items';
 import FormModal from './FormModal';
 
 const ItemDetails = () => {
+    // shows details about an item
     const dispatch = useDispatch();
     const { currUser } = useSelector(st => st.currUser);
     const { item_id } = useParams();
