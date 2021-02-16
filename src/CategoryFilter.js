@@ -5,7 +5,6 @@ import FilterButton from './FilterButton';
 const CategoryFilter = memo(({ categories, filterArray, setFilterArray }) => {
 
     const addToFilter = useCallback((id) => {
-
         setFilterArray([...filterArray, id]);
     }, [filterArray]);
     const removeFromFilter = useCallback((id) => {

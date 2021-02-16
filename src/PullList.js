@@ -35,7 +35,7 @@ const PullList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
+                    {!Array.isArray(users) ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                 </tbody>
             </Table>
             {currUser.is_admin ? <Button className="btn-danger" onClick={handleClick}>Return All</Button> : null}
