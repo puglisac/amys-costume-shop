@@ -3,9 +3,17 @@ import { GET_TOKEN, LOGOUT, INVENTORY_URL, GET_CURR_USER, GET_USERS, ADD_USER, R
 
 function loginUser(email, password) {
     return async function (dispatch) {
-        const { data } = await axios.post(`${INVENTORY_URL}users/login`, { email, password });
-        dispatch(gotToken(data.access_token));
-        dispatch(getCurrUser(email, data.access_token));
+        try {
+            const { data } = await axios.post(`${INVENTORY_URL}users/login`, { email, password });
+            dispatch(gotToken(data.access_token));
+            dispatch(getCurrUser(email, data.access_token));
+        } catch (e) {
+            if (e.response) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 

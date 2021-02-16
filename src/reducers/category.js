@@ -10,7 +10,7 @@ export default function categories(state = {}, action) {
             return newCategory;
         case REMOVE_CATEGORY:
             const updatedCategories = { ...state, categories: [state.categories.filter(c => c.id != action.payload)] };
-            return updatedUsers;
+            return updatedCategories;
         case LOGOUT:
             return { ...state, categories: null };
         default:

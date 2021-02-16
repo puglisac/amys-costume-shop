@@ -12,7 +12,7 @@ const ItemDetails = () => {
     const { items } = useSelector(st => st.items);
     const { token } = useSelector(st => st.token);
     useEffect(() => {
-        dispatch(getOneItem(token, item_id));
+        dispatch(getOneItem(token, item_id)).catch(e => alert(e));
     }, []);
     return (
         <div>

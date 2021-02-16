@@ -24,7 +24,7 @@ const LoginForm = memo((props) => {
     function handleSubmit(e) {
         e.preventDefault();
         const { email, password } = formData;
-        dispatch(loginUser(email, password)).catch(e => alert(e.response.data.message));
+        dispatch(loginUser(email, password)).catch(e => alert(e));
     }
 
     return (
