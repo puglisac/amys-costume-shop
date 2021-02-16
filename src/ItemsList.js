@@ -27,7 +27,6 @@ const ItemsList = () => {
     const [filterArray, setFilterArray] = useState(initialState);
 
     const filterItems = () => {
-
         const categoryString = filterArray.join(",");
         dispatch(getAllItems(token, categoryString)).catch(e => alert(e));
     };
