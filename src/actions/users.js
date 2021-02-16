@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_TOKEN, LOGOUT, INVENTORY_URL, GET_CURR_USER, GET_USERS, ADD_USER } from "./actionTypes";
+import { GET_TOKEN, LOGOUT, INVENTORY_URL, GET_CURR_USER, GET_USERS, ADD_USER, REMOVE_USER } from "./actionTypes";
 
 function loginUser(email, password) {
     return async function (dispatch) {
@@ -70,6 +70,15 @@ function addUser(token, body) {
     };
 }
 
+function removeUser(token, email) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        await axios.delete(`${INVENTORY_URL}users/${email}`, config);
+        dispatch(removedUser(email));
+    };
+}
+
 function gotToken(token) {
     return { type: GET_TOKEN, payload: token };
 }
@@ -86,8 +95,12 @@ function gotUser(user) {
     return { type: GET_USERS, payload: user };
 }
 
+function removedUser(email) {
+    return { type: REMOVE_USER, payload: email };
+}
+
 function logout() {
     return { type: LOGOUT };
 }
 
-export { loginUser, gotToken, logout, addItemToPullList, getCurrUser, removeItemFromPullList, getUser, editUser, addUser, getAllUsers };
+export { loginUser, gotToken, logout, addItemToPullList, getCurrUser, removeItemFromPullList, getUser, editUser, addUser, getAllUsers, removeUser };

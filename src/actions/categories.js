@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INVENTORY_URL, GET_CATEGORIES, ADD_CATEGORY } from "./actionTypes";
+import { INVENTORY_URL, GET_CATEGORIES, ADD_CATEGORY, REMOVE_CATEGORY } from "./actionTypes";
 
 function getAllCategories(token) {
     return async function (dispatch) {
@@ -40,6 +40,14 @@ function editCategory(token, body, categoryId) {
     };
 }
 
+function removeCategory(token, categoryId) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        await axios.delete(`${INVENTORY_URL}categories/${categoryId}`, config);
+        dispatch(removedCategory(categoryId));
+    };
+}
 
 function gotCategories(categories) {
     return { type: GET_CATEGORIES, payload: categories };
@@ -49,4 +57,8 @@ function gotNewCategory(category) {
     return { type: ADD_CATEGORY, payload: category };
 }
 
-export { getAllCategories, addCategory, getOneCategory, editCategory };
+function removedCategory(categoryId) {
+    return { type: REMOVE_CATEGORY, payload: categoryId };
+}
+
+export { getAllCategories, addCategory, getOneCategory, editCategory, removeCategory };

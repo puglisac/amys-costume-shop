@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INVENTORY_URL, GET_ITEMS, ADD_ITEM } from "./actionTypes";
+import { INVENTORY_URL, GET_ITEMS, ADD_ITEM, REMOVE_ITEM } from "./actionTypes";
 
 function getAllItems(token, category_id) {
     return async function (dispatch) {
@@ -43,6 +43,14 @@ function editItem(token, body, itemId) {
     };
 }
 
+function removeItem(token, itemId) {
+    return async function (dispatch) {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        await axios.delete(`${INVENTORY_URL}items/${itemId}`, config);
+        dispatch(removedItem(itemId));
+    };
+}
 
 function gotItems(items) {
     return { type: GET_ITEMS, payload: items };
@@ -52,4 +60,8 @@ function gotNewItem(item) {
     return { type: ADD_ITEM, payload: item };
 }
 
-export { getAllItems, addItem, getOneItem, editItem };
+function removedItem(itemId) {
+    return { type: REMOVE_ITEM, payload: itemId };
+}
+
+export { getAllItems, addItem, getOneItem, editItem, removeItem };
