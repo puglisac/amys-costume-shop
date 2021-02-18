@@ -17,12 +17,13 @@ const UserForm = memo(({ toggle, user }) => {
 
     let initialState;
     if (user) {
+
         initialState = {
 
             email: user.email || "",
             first_name: user.first_name || "",
             last_name: user.last_name || "",
-            is_admin: user.is_admin
+            is_admin: user.is_admin ? "true" : "false"
         };
     } else {
         initialState = {
@@ -30,7 +31,7 @@ const UserForm = memo(({ toggle, user }) => {
             first_name: "",
             last_name: "",
             password: "",
-            is_admin: false
+            is_admin: "false"
         };
     }
 
@@ -45,6 +46,7 @@ const UserForm = memo(({ toggle, user }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (formData.is_admin == "false") {
             formData.is_admin = false;
         } else {
@@ -70,7 +72,7 @@ const UserForm = memo(({ toggle, user }) => {
     };
 
     const deleteUser = () => {
-        dispatch(removeUser(user.email)).catch(e => alert(e));
+        dispatch(removeUser(token, user.email)).catch(e => alert(e));
         history.push("/users");
     };
 

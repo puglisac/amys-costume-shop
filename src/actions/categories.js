@@ -5,8 +5,18 @@ function getAllCategories(token) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        const { data } = await axios.get(`${INVENTORY_URL}categories/`, config);
-        dispatch(gotCategories(data.categories));
+        try {
+            const { data } = await axios.get(`${INVENTORY_URL}categories/`, config);
+            dispatch(gotCategories(data.categories));
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
 
     };
 }
@@ -15,9 +25,18 @@ function getOneCategory(token, category_id) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        const { data } = await axios.get(`${INVENTORY_URL}categories/${category_id}`, config);
-        dispatch(gotCategories(data.category));
-
+        try {
+            const { data } = await axios.get(`${INVENTORY_URL}categories/${category_id}`, config);
+            dispatch(gotCategories(data.category));
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 
@@ -25,9 +44,18 @@ function addCategory(token, body) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        const { data } = await axios.post(`${INVENTORY_URL}categories/`, body, config);
-        dispatch(gotNewCategory(data.category));
-
+        try {
+            const { data } = await axios.post(`${INVENTORY_URL}categories/`, body, config);
+            dispatch(gotNewCategory(data.category));
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 
@@ -35,8 +63,18 @@ function editCategory(token, body, categoryId) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        const { data } = await axios.patch(`${INVENTORY_URL}categories/${categoryId}`, body, config);
-        dispatch(gotCategories(data.category));
+        try {
+            const { data } = await axios.patch(`${INVENTORY_URL}categories/${categoryId}`, body, config);
+            dispatch(gotCategories(data.category));
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 
@@ -44,7 +82,17 @@ function removeCategory(token, categoryId) {
     return async function () {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        await axios.delete(`${INVENTORY_URL}categories/${categoryId}`, config);
+        try {
+            const { data } = await axios.delete(`${INVENTORY_URL}categories/${categoryId}`, config);
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 
