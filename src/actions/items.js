@@ -74,7 +74,7 @@ function removeItem(token, itemId) {
     return async function () {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         try {
-            const { data } = await axios.delete(`${INVENTORY_URL}items/${itemId}`, config);
+            await axios.delete(`${INVENTORY_URL}items/${itemId}`, config);
         } catch (e) {
             if (e.response.status == 404) {
                 throw ("No such item");

@@ -156,7 +156,7 @@ function removeUser(token, email) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
         try {
-            const { data } = await axios.delete(`${INVENTORY_URL}users/${email}`, config);
+            await axios.delete(`${INVENTORY_URL}users/${email}`, config);
         } catch (e) {
             if (e.response.status == 404) {
                 throw ("No such item");

@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser, addUser, getCurrUser, logout, removeUser } from './actions/users';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
@@ -71,10 +71,9 @@ const UserForm = memo(({ toggle, user }) => {
         toggle();
     };
 
-    const deleteUser = () => {
-        dispatch(removeUser(token, user.email)).catch(e => alert(e));
-        history.push("/users");
-    };
+    const deleteUser = useCallback(() => {
+        dispatch(removeUser(token, user.email)).then(() => history.push("/users")).catch(e => alert(e));
+    }, []);
 
     return (
         <div className="container">

@@ -83,7 +83,7 @@ function removeCategory(token, categoryId) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
         try {
-            const { data } = await axios.delete(`${INVENTORY_URL}categories/${categoryId}`, config);
+            await axios.delete(`${INVENTORY_URL}categories/${categoryId}`, config);
         } catch (e) {
             if (e.response.status == 404) {
                 throw ("No such item");

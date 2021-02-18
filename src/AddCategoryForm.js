@@ -1,5 +1,5 @@
 
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategory, editCategory, removeCategory } from './actions/categories';
 import { ModalFooter, Button, Input, Form, FormGroup, Label } from 'reactstrap';
@@ -44,10 +44,9 @@ const AddCategoryForm = memo(({ toggle, category }) => {
         toggle();
     };
 
-    const deleteCategory = () => {
-        dispatch(removeCategory(token, category.id)).catch(e => alert(e));
-        history.push("/categories");
-    };
+    const deleteCategory = useCallback(() => {
+        dispatch(removeCategory(token, category.id)).then(() => history.push("/categories")).catch(e => alert(e));
+    }, []);
 
     return (
         <div className="container">

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 
-const AreYouSure = (props) => {
+const AreYouSure = memo((props) => {
 
     const {
         buttonLabel,
@@ -26,5 +26,5 @@ const AreYouSure = (props) => {
             </Modal>
         </div>
     );
-};
+});
 export default AreYouSure;

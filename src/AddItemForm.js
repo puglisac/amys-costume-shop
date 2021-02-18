@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, editItem, removeItem } from './actions/items';
 import { useHistory } from 'react-router-dom';
@@ -77,10 +77,9 @@ const AddItemForm = memo(({ toggle, item }) => {
         toggle();
     };
 
-    const deleteItem = () => {
-        dispatch(removeItem(token, item.id)).catch(e => alert(e));
-        history.push("/items");
-    };
+    const deleteItem = useCallback(() => {
+        dispatch(removeItem(token, item.id)).then(() => history.push("/items")).catch(e => alert(e));
+    }, []);
 
     return (
         <div className="container">
