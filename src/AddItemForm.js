@@ -1,14 +1,17 @@
 
 import React, { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, editItem } from './actions/items';
+import { addItem, editItem, removeItem } from './actions/items';
+import { useHistory } from 'react-router-dom';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { getAllCategories } from './actions/categories';
+import AreYouSure from './AreYouSure';
 
 
 const AddItemForm = memo(({ toggle, item }) => {
     // form to add/edit items
     const dispatch = useDispatch();
+    const history = useHistory();
     const { token } = useSelector(st => st.token);
     const { categories } = useSelector(st => st.categories);
     let initialState;
@@ -74,7 +77,10 @@ const AddItemForm = memo(({ toggle, item }) => {
         toggle();
     };
 
-
+    const deleteItem = () => {
+        dispatch(removeItem(token, item.id)).catch(e => alert(e));
+        history.push("/items");
+    };
 
     return (
         <div className="container">
@@ -137,6 +143,7 @@ const AddItemForm = memo(({ toggle, item }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
+            {item ? <AreYouSure buttonLabel="Delete Item" onClick={deleteItem} /> : null}
         </div>
     );
 });

@@ -79,11 +79,10 @@ function addUser(token, body) {
 }
 
 function removeUser(token, email) {
-    return async function (dispatch) {
+    return async function () {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
         await axios.delete(`${INVENTORY_URL}users/${email}`, config);
-        dispatch(removedUser(email));
     };
 }
 
@@ -101,10 +100,6 @@ function gotNewUser(user) {
 
 function gotUser(user) {
     return { type: GET_USERS, payload: user };
-}
-
-function removedUser(email) {
-    return { type: REMOVE_USER, payload: email };
 }
 
 function logout() {

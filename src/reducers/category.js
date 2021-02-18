@@ -8,9 +8,6 @@ export default function categories(state = {}, action) {
         case ADD_CATEGORY:
             const newCategory = { ...state, categories: [...state.categories, action.payload] };
             return newCategory;
-        case REMOVE_CATEGORY:
-            const updatedCategories = { ...state, categories: [state.categories.filter(c => c.id != action.payload)] };
-            return updatedCategories;
         case LOGOUT:
             return { ...state, categories: null };
         default:

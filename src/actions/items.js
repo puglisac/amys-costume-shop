@@ -23,9 +23,9 @@ function getOneItem(token, itemId) {
             const { data } = await axios.get(`${INVENTORY_URL}items/${itemId}`, config);
             dispatch(gotItems(data.item));
         } catch (e) {
-            if (e.response.status = 404) {
+            if (e.response.status == 404) {
                 throw ("No such item");
-            } else if (e.response.status = 401) {
+            } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -43,7 +43,7 @@ function addItem(token, body) {
             const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
             dispatch(gotNewItem(data.item));
         } catch (e) {
-            if (e.response.status = 401) {
+            if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -59,9 +59,9 @@ function editItem(token, body, itemId) {
             const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
             dispatch(gotItems(data.item));
         } catch (e) {
-            if (e.response.status = 404) {
+            if (e.response.status == 404) {
                 throw ("No such item");
-            } else if (e.response.status = 401) {
+            } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -71,15 +71,14 @@ function editItem(token, body, itemId) {
 }
 
 function removeItem(token, itemId) {
-    return async function (dispatch) {
+    return async function () {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         try {
             await axios.delete(`${INVENTORY_URL}items/${itemId}`, config);
-            dispatch(removedItem(itemId));
         } catch (e) {
-            if (e.response.status = 404) {
+            if (e.response.status == 404) {
                 throw ("No such item");
-            } else if (e.response.status = 401) {
+            } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -94,10 +93,6 @@ function gotItems(items) {
 
 function gotNewItem(item) {
     return { type: ADD_ITEM, payload: item };
-}
-
-function removedItem(itemId) {
-    return { type: REMOVE_ITEM, payload: itemId };
 }
 
 export { getAllItems, addItem, getOneItem, editItem, removeItem };

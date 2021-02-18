@@ -1,14 +1,16 @@
 
 import React, { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUser, addUser, getCurrUser, logout } from './actions/users';
+import { editUser, addUser, getCurrUser, logout, removeUser } from './actions/users';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { getAllCategories } from './actions/categories';
 import { useHistory } from 'react-router-dom';
+import AreYouSure from "./AreYouSure";
 
 
 const UserForm = memo(({ toggle, user }) => {
     // form to add/edit a user
+    const history = useHistory();
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
@@ -67,6 +69,11 @@ const UserForm = memo(({ toggle, user }) => {
         toggle();
     };
 
+    const deleteUser = () => {
+        dispatch(removeUser(user.email)).catch(e => alert(e));
+        history.push("/users");
+    };
+
     return (
         <div className="container">
             <Form onSubmit={handleSubmit}>
@@ -115,6 +122,7 @@ const UserForm = memo(({ toggle, user }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
+            {user ? <AreYouSure buttonLabel="Delete User" onClick={deleteUser} /> : null}
         </div>
     );
 });

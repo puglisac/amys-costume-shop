@@ -9,7 +9,7 @@ export default function users(state = {}, action) {
             const newUser = { ...state, users: [...state.users, action.payload] };
             return newUser;
         case REMOVE_USER:
-            const updatedUsers = { ...state, users: [state.users.filter(u => u.email != action.payload)] };
+            const updatedUsers = { ...state, users: state.users.filter(u => u.email != action.payload) };
             return updatedUsers;
         case LOGOUT:
             return { ...state, users: null };

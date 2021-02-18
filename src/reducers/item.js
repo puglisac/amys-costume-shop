@@ -8,9 +8,6 @@ export default function items(state = {}, action) {
         case ADD_ITEM:
             const newItems = { ...state, items: [...state.items, action.payload] };
             return newItems;
-        case REMOVE_ITEM:
-            const updatedItems = { ...state, items: [state.items.filter(i => i.id != action.payload)] };
-            return updatedItems;
         case LOGOUT:
             return { ...state, items: null };
         default:
