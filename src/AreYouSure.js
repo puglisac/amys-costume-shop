@@ -16,7 +16,7 @@ const AreYouSure = memo((props) => {
 
     return (
         <div>
-            <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
+            <Button color="danger" onClick={toggle} >{buttonLabel}</Button>
             <Modal isOpen={modal} toggle={toggle} className={className}>
                 <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
                 <ModalBody>
