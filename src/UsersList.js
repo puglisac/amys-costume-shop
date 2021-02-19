@@ -21,23 +21,25 @@ const UsersList = () => {
         dispatch(getAllUsers(token)).catch(e => alert(e));
     }, []);
     return (
-        <div className="container">
-            <h3>Users</h3>
-            <p>Total: {users.length}</p>
-            <Table className=" mt-4 shadow-sm p-2">
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
+        <div className="container row">
+            <div className="col-md-6 col-lg m-4">
+                <h3>Users</h3>
+                <p>Total: {users.length}</p>
+                <Table className="shadow p-2">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {Array.isArray(users) ? users.map(u => <UserRow key={u.id} user={u} />) : "Loading..."}
-                </tbody>
-            </Table>
-            {currUser.is_admin ? <FormModal buttonLabel="Add User" formType="user" /> : null}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(users) ? users.map(u => <UserRow key={u.id} user={u} />) : "Loading..."}
+                    </tbody>
+                </Table>
+                {currUser.is_admin ? <FormModal buttonLabel="Add User" formType="user" /> : null}
+            </div>
         </div>
     );
 };

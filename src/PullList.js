@@ -24,11 +24,11 @@ const PullList = () => {
     }, []);
 
     return (
-        <div className="container row m-4">
+        <div className="container row">
             <div className="col-md-6 col-lg m-4">
                 <h2>My Items</h2>
                 {!Array.isArray(users) ? <p>Total: {users.pull_list.length}</p> : null}
-                <Table>
+                <Table className="shadow p-2">
                     <thead>
                         <tr>
                             <th>Image</th>

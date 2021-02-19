@@ -19,7 +19,7 @@ const CategoriesList = () => {
     }, []);
 
     return (
-        <div className="container row m-4">
+        <div className="container row">
             <div className="col-md-6 col-lg m-4">
                 <h2>Categories</h2>
                 <p>Total: {categories.length}</p>
