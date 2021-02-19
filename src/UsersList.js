@@ -22,6 +22,8 @@ const UsersList = () => {
     }, []);
     return (
         <div className="container">
+            <h3>Users</h3>
+            <p>Total: {users.length}</p>
             <Table className=" mt-4 shadow-sm p-2">
                 <thead>
                     <tr>

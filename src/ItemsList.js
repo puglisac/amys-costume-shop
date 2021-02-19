@@ -37,25 +37,29 @@ const ItemsList = () => {
         }
     }, [filterArray]);
     return (
-        <div className="container">
+        <div className="container row">
             {category_id || !Array.isArray(categories) ? null : <CategoryFilter categories={categories} filterArray={filterArray} setFilterArray={setFilterArray} />}
-            <Table className=" mt-4 shadow-sm p-2">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Item</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                        <th>Categories</th>
-                        <th>Quantity</th>
-                        <th>Pulled?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Array.isArray(items) ? items.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
-                </tbody>
-            </Table>
-            {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
+            <div className="col-md-6 col-lg m-4">
+                <h2>Items</h2>
+                <p>Total: {items.length}</p>
+                <Table className=" shadow p-2">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Item</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Categories</th>
+                            <th>Quantity</th>
+                            <th>Pulled?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(items) ? items.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
+                    </tbody>
+                </Table>
+                {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
+            </div>
         </div>
     );
 };
