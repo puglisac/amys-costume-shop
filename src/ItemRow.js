@@ -31,7 +31,7 @@ const ItemRow = memo(({ item, currUser }) => {
     }, [item.user_id]);
 
     return (<tr className="item_row">
-        <td><img src={item.image_path} /></td>
+        <td><img src={item.image_path || "/images/not-available.png"} /></td>
         <th><a href={`items/${item.id}`}>{item.name}</a></th>
         <td>{item.location}</td>
         <td>{item.description}</td>

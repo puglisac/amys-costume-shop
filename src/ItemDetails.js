@@ -26,7 +26,7 @@ const ItemDetails = () => {
     return (
         <div className="container row justify-content-center">
             {!Array.isArray(items) ? <Card className="col-md-4 shadow mt-4">
-                <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" />
+                <CardImg top width="100%" src={items.image_path || "/images/not-available.png"} alt="Card image cap" />
                 <CardBody>
                     <CardTitle tag="h5">{items.name}</CardTitle>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">{items.location}</CardSubtitle>
