@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllItems } from './actions/items';
 import { Table } from 'reactstrap';
@@ -6,6 +6,7 @@ import FormModal from './FormModal';
 import ItemRow from './ItemRow';
 import { getAllCategories } from './actions/categories';
 import { useParams } from 'react-router-dom';
+import { paginate } from './helpers';
 
 
 const ItemsList = () => {
@@ -14,8 +15,14 @@ const ItemsList = () => {
     const { items } = useSelector(st => st.items);
     const { category_id } = useParams();
     const { users } = useSelector(st => st.users);
-
+    const [pageNumber, setPageNumber] = useState(1);
     const dispatch = useDispatch();
+
+    let paginatedItems;
+    if (Array.isArray(items)) {
+        paginatedItems = paginate(items, pageNumber, 15);
+    }
+
     useEffect(() => {
         dispatch(getAllItems(token, category_id)).catch(e => alert(e));
         dispatch(getAllCategories(token)).catch(e => alert(e));
@@ -35,7 +42,7 @@ const ItemsList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Array.isArray(items) ? items.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
+                    {Array.isArray(items) ? paginatedItems.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                 </tbody>
             </Table>
             {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
