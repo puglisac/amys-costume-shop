@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllItems } from './actions/items';
@@ -10,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { paginate } from './helpers';
 import './item_row.css';
 import CategoryFilter from './CategoryFilter';
+import PaginationButtons from './PaginationButtons';
 
 
 const ItemsList = () => {
@@ -18,21 +18,18 @@ const ItemsList = () => {
     const { currUser } = useSelector(st => st.currUser);
     const { items } = useSelector(st => st.items);
     const { category_id } = useParams();
-    const { users } = useSelector(st => st.users);
     const [pageNumber, setPageNumber] = useState(1);
     const dispatch = useDispatch();
 
     let paginatedItems;
     if (Array.isArray(items)) {
-        paginatedItems = paginate(items, pageNumber, 15);
+        paginatedItems = paginate(items, pageNumber, 2);
     }
 
     const { categories } = useSelector(st => st.categories);
 
-    const dispatch = useDispatch();
     let initialState = [];
     if (category_id) {
-
         initialState = [category_id];
     }
     const [filterArray, setFilterArray] = useState(initialState);
@@ -41,18 +38,20 @@ const ItemsList = () => {
         const categoryString = filterArray.join(",");
         dispatch(getAllItems(token, categoryString)).catch(e => alert(e));
     };
+
     useEffect(() => {
         filterItems();
         if (!category_id) {
             dispatch(getAllCategories(token)).catch(e => alert(e));
         }
     }, [filterArray]);
+
     return (
         <div className="container row">
             {category_id || !Array.isArray(categories) ? null : <CategoryFilter categories={categories} filterArray={filterArray} setFilterArray={setFilterArray} />}
             <div className="col-md-6 col-lg m-4">
                 <h2>Items</h2>
-                <p>Total: {items.length}</p>
+                {items ? <p>Total: {items.length}</p> : null}
                 <Table className=" shadow p-2">
                     <thead>
                         <tr>
@@ -69,6 +68,7 @@ const ItemsList = () => {
                         {Array.isArray(items) ? paginatedItems.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                     </tbody>
                 </Table>
+                {Array.isArray(items) ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(items.length / 2)} /> : null}
                 {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
             </div>
         </div>
