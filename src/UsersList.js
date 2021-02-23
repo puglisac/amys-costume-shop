@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllItems } from './actions/items';
 import { Table } from 'reactstrap';
@@ -7,7 +7,8 @@ import UserRow from './UserRow';
 import { getAllCategories } from './actions/categories';
 import { useParams } from 'react-router-dom';
 import { getAllUsers } from './actions/users';
-
+import { paginate } from './helpers';
+import PaginationButtons from './PaginationButtons';
 
 
 const UsersList = () => {
@@ -15,8 +16,15 @@ const UsersList = () => {
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
     const { users } = useSelector(st => st.users);
-
     const dispatch = useDispatch();
+
+    const [pageNumber, setPageNumber] = useState(1);
+    const PAGESIZE = 15;
+    let paginatedUsers;
+    if (Array.isArray(users)) {
+        paginatedUsers = paginate(users, pageNumber, PAGESIZE);
+    }
+
     useEffect(() => {
         dispatch(getAllUsers(token)).catch(e => alert(e));
     }, []);
@@ -24,7 +32,7 @@ const UsersList = () => {
         <div className="container row">
             <div className="col-md-6 col-lg m-4">
                 <h3>Users</h3>
-                <p>Total: {users.length}</p>
+                {users ? <p>Total: {users.length}</p> : null}
                 <Table className="shadow p-2">
                     <thead>
                         <tr>
@@ -35,9 +43,10 @@ const UsersList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.isArray(users) ? users.map(u => <UserRow key={u.id} user={u} />) : "Loading..."}
+                        {Array.isArray(users) ? paginatedUsers.map(u => <UserRow key={u.id} user={u} />) : "Loading..."}
                     </tbody>
                 </Table>
+                {Array.isArray(users) && users.length > PAGESIZE ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(users.length / PAGESIZE)} /> : null}
                 {currUser.is_admin ? <FormModal buttonLabel="Add User" formType="user" /> : null}
             </div>
         </div>

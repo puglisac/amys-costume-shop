@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser, removeItemFromPullList } from './actions/users';
 import { Table } from 'reactstrap';
 import PulledRow from './PulledRow';
 import { useParams } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import { paginate } from './helpers';
+import PaginationButtons from './PaginationButtons';
 
 
 const PullList = () => {
@@ -14,6 +16,14 @@ const PullList = () => {
     const { email } = useParams();
     const { currUser } = useSelector(st => st.currUser);
     const { users } = useSelector(st => st.users);
+
+    const [pageNumber, setPageNumber] = useState(1);
+    const PAGESIZE = 15;
+    let paginatedItems;
+    if (!Array.isArray(users)) {
+        paginatedItems = paginate(users.pull_list, pageNumber, PAGESIZE);
+    }
+
 
     const handleClick = () => {
         dispatch(removeItemFromPullList(token, email, "all"));
@@ -39,9 +49,10 @@ const PullList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {!Array.isArray(users) ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
+                        {!Array.isArray(users) ? paginatedItems.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                     </tbody>
                 </Table>
+                {!Array.isArray(users) && users.pull_list.length > PAGESIZE ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(users.pull_list.length / PAGESIZE)} /> : null}
                 {currUser.is_admin ? <Button className="btn-danger" onClick={handleClick}>Return All</Button> : null}
             </div>
         </div>

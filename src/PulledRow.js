@@ -10,7 +10,7 @@ const PulledRow = memo(({ item, currUser }) => {
         <td>{item.location}</td>
         <td>{item.description}</td>
         <td>{item.quantity}</td>
-        {currUser.is_admin ? <RemoveFromListBtn itemId={item.id} /> : null}
+        {currUser.is_admin ? <td><RemoveFromListBtn itemId={item.id} /> </td> : null}
     </tr>);
 });
 export default PulledRow;
