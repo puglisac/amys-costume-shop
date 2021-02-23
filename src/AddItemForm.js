@@ -1,13 +1,17 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, editItem } from './actions/items';
+import { addItem, editItem, removeItem } from './actions/items';
+import { useHistory } from 'react-router-dom';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { getAllCategories } from './actions/categories';
+import AreYouSure from './AreYouSure';
 
 
-const AddItemForm = ({ toggle, item }) => {
+const AddItemForm = memo(({ toggle, item }) => {
+    // form to add/edit items
     const dispatch = useDispatch();
+    const history = useHistory();
     const { token } = useSelector(st => st.token);
     const { categories } = useSelector(st => st.categories);
     let initialState;
@@ -73,7 +77,9 @@ const AddItemForm = ({ toggle, item }) => {
         toggle();
     };
 
-
+    const deleteItem = useCallback(() => {
+        dispatch(removeItem(token, item.id)).then(() => history.push("/items")).catch(e => alert(e));
+    }, []);
 
     return (
         <div className="container">
@@ -136,8 +142,9 @@ const AddItemForm = ({ toggle, item }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
+            {item ? <AreYouSure buttonLabel="Delete Item" onClick={deleteItem} /> : null}
         </div>
     );
-};
+});
 
 export default AddItemForm;

@@ -8,6 +8,7 @@ import { getAllCategories } from './actions/categories';
 
 
 const CategoriesList = () => {
+    // a list of categories
     const { categories } = useSelector(st => st.categories);
     const { token } = useSelector(st => st.token);
     const { currUser } = useSelector(st => st.currUser);
@@ -18,20 +19,24 @@ const CategoriesList = () => {
     }, []);
 
     return (
-        <div className="container">
-            <Table className=" mt-4 shadow-sm p-2">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {Array.isArray(categories) ? categories.map(c => <CategoryRow key={c.id} category={c} />) : "Loading..."}
-                </tbody>
-            </Table>
-            {currUser.is_admin ? <FormModal buttonLabel="Add Category" formType="categories" /> : null}
-        </div>
+        <div className="container row">
+            <div className="col-md-6 col-lg m-4">
+                <h2>Categories</h2>
+                <p>Total: {categories.length}</p>
+                <Table className=" shadow p-2">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(categories) ? categories.map(c => <CategoryRow key={c.id} category={c} />) : "Loading..."}
+                    </tbody>
+                </Table>
+                {currUser.is_admin ? <FormModal buttonLabel="Add Category" formType="categories" /> : null}
+            </div>
+        </div >
     );
 };
 

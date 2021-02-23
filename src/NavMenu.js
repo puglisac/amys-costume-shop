@@ -16,6 +16,7 @@ import {
 } from 'reactstrap';
 
 const NavMenu = ({ userEmail, isAdmin }) => {
+    // menu items displayed in the navigation header
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -50,7 +51,7 @@ const NavMenu = ({ userEmail, isAdmin }) => {
                                 <NavLink href={`/pull-list/${userEmail}`}>My Pull List</NavLink>
                             </DropdownItem>
                             {isAdmin ? <DropdownItem>
-                                <NavLink href="#">Manage Users</NavLink>
+                                <NavLink href="/users">Manage Users</NavLink>
                             </DropdownItem> : null}
                             <DropdownItem divider />
                             <DropdownItem>

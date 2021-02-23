@@ -1,13 +1,15 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUser, addUser, getCurrUser, logout } from './actions/users';
+import { editUser, addUser, getCurrUser, logout, removeUser } from './actions/users';
 import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { getAllCategories } from './actions/categories';
 import { useHistory } from 'react-router-dom';
+import AreYouSure from "./AreYouSure";
 
 
-const UserForm = ({ toggle, user }) => {
+const UserForm = memo(({ toggle, user }) => {
+    // form to add/edit a user
     const history = useHistory();
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
@@ -15,19 +17,21 @@ const UserForm = ({ toggle, user }) => {
 
     let initialState;
     if (user) {
+
         initialState = {
 
             email: user.email || "",
             first_name: user.first_name || "",
             last_name: user.last_name || "",
-            is_admin: user.is_admin
+            is_admin: user.is_admin ? "true" : "false"
         };
     } else {
         initialState = {
             email: "",
             first_name: "",
             last_name: "",
-            is_admin: false
+            password: "",
+            is_admin: "false"
         };
     }
 
@@ -42,6 +46,7 @@ const UserForm = ({ toggle, user }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (formData.is_admin == "false") {
             formData.is_admin = false;
         } else {
@@ -61,10 +66,14 @@ const UserForm = ({ toggle, user }) => {
 
         }
         else {
-            dispatch(addUser(token, formData)).catch(e => alert(e));
+            dispatch(addUser(token, formData)).catch(e => alert(e.response.data.message));
         }
         toggle();
     };
+
+    const deleteUser = useCallback(() => {
+        dispatch(removeUser(token, user.email)).then(() => history.push("/users")).catch(e => alert(e));
+    }, []);
 
     return (
         <div className="container">
@@ -94,6 +103,15 @@ const UserForm = ({ toggle, user }) => {
                         value={formData.last_name}
                         onChange={handleChange} />
                 </FormGroup>
+                {user ? null : <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange} />
+                </FormGroup>}
                 {currUser.is_admin ? <FormGroup>
                     <Label for="is_admin">Admin?</Label>
                     <Input type="select" name="is_admin" id="is_admin" value={formData.is_admin} onChange={handleChange}>
@@ -105,8 +123,9 @@ const UserForm = ({ toggle, user }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
+            {user ? <AreYouSure buttonLabel="Delete User" onClick={deleteUser} /> : null}
         </div>
     );
-};
+});
 
 export default UserForm;

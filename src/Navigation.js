@@ -8,6 +8,7 @@ import {
 import { GET_CURR_USER } from './actions/actionTypes';
 
 const Navigation = (props) => {
+  // the main navigation header
 
   const { currUser } = useSelector(st => st.currUser);
 

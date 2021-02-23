@@ -1,4 +1,4 @@
-import { ADD_ITEM, GET_ITEMS, LOGOUT } from "../actions/actionTypes";
+import { ADD_ITEM, GET_ITEMS, LOGOUT, REMOVE_ITEM } from "../actions/actionTypes";
 
 export default function items(state = {}, action) {
     switch (action.type) {

@@ -1,11 +1,14 @@
 
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, editCategory } from './actions/categories';
+import { addCategory, editCategory, removeCategory } from './actions/categories';
 import { ModalFooter, Button, Input, Form, FormGroup, Label } from 'reactstrap';
+import AreYouSure from './AreYouSure';
+import { useHistory } from 'react-router-dom';
 
-
-const AddCategoryForm = ({ toggle, category }) => {
+const AddCategoryForm = memo(({ toggle, category }) => {
+    // form to add/edit categories
+    const history = useHistory();
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     let initialState;
@@ -41,6 +44,10 @@ const AddCategoryForm = ({ toggle, category }) => {
         toggle();
     };
 
+    const deleteCategory = useCallback(() => {
+        dispatch(removeCategory(token, category.id)).then(() => history.push("/categories")).catch(e => alert(e));
+    }, []);
+
     return (
         <div className="container">
             <Form onSubmit={handleSubmit}>
@@ -65,8 +72,9 @@ const AddCategoryForm = ({ toggle, category }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
+            {category ? <AreYouSure buttonLabel="Delete Category" onClick={deleteCategory} /> : null}
         </div>
     );
-};
+});
 
 export default AddCategoryForm;

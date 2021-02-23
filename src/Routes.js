@@ -9,6 +9,7 @@ import PullList from './PullList';
 import ItemDetails from './ItemDetails';
 import CategoryHeader from './CategoryHeader';
 import UserInfo from "./UserInfo";
+import UsersList from "./UsersList";
 
 function Routes() {
 
@@ -44,6 +45,10 @@ function Routes() {
 
                 <Route exact path="/categories/:category_id">
                     {currUser ? <div><CategoryHeader /> <ItemsList /> </div> : <Redirect to="/" />}
+                </Route>
+
+                <Route exact path="/users">
+                    {currUser && currUser.is_admin ? <UsersList /> : <Redirect to="/" />}
                 </Route>
 
                 <Route exact path="/:user_email">

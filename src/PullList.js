@@ -8,6 +8,7 @@ import { Button } from 'reactstrap';
 
 
 const PullList = () => {
+    // a list of items pulled by a user
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { email } = useParams();
@@ -23,22 +24,26 @@ const PullList = () => {
     }, []);
 
     return (
-        <div className="container">
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Item</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
-                </tbody>
-            </Table>
-            <Button className="btn-danger" onClick={handleClick}>Return All</Button>
+        <div className="container row">
+            <div className="col-md-6 col-lg m-4">
+                <h2>My Items</h2>
+                {!Array.isArray(users) ? <p>Total: {users.pull_list.length}</p> : null}
+                <Table className="shadow p-2">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Item</th>
+                            <th>Location</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {!Array.isArray(users) ? users.pull_list.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
+                    </tbody>
+                </Table>
+                {currUser.is_admin ? <Button className="btn-danger" onClick={handleClick}>Return All</Button> : null}
+            </div>
         </div>
     );
 };

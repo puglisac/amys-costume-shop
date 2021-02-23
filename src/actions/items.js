@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INVENTORY_URL, GET_ITEMS, ADD_ITEM } from "./actionTypes";
+import { INVENTORY_URL, GET_ITEMS, ADD_ITEM, REMOVE_ITEM } from "./actionTypes";
 
 function getAllItems(token, category_id) {
     return async function (dispatch) {
@@ -19,9 +19,19 @@ function getAllItems(token, category_id) {
 function getOneItem(token, itemId) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
+        try {
+            const { data } = await axios.get(`${INVENTORY_URL}items/${itemId}`, config);
+            dispatch(gotItems(data.item));
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
 
-        const { data } = await axios.get(`${INVENTORY_URL}items/${itemId}`, config);
-        dispatch(gotItems(data.item));
     };
 }
 
@@ -29,20 +39,53 @@ function addItem(token, body) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
-        dispatch(gotNewItem(data.item));
+        try {
+            const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
+            dispatch(gotNewItem(data.item));
+        } catch (e) {
+            if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 
 function editItem(token, body, itemId) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-
-        const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
-        dispatch(gotItems(data.item));
+        try {
+            const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
+            dispatch(gotItems(data.item));
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
     };
 }
 
+function removeItem(token, itemId) {
+    return async function () {
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        try {
+            await axios.delete(`${INVENTORY_URL}items/${itemId}`, config);
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
+    };
+}
 
 function gotItems(items) {
     return { type: GET_ITEMS, payload: items };
@@ -52,4 +95,4 @@ function gotNewItem(item) {
     return { type: ADD_ITEM, payload: item };
 }
 
-export { getAllItems, addItem, getOneItem, editItem };
+export { getAllItems, addItem, getOneItem, editItem, removeItem };

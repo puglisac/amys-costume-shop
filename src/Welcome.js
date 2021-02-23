@@ -2,6 +2,7 @@ import React from 'react';
 import { Jumbotron } from 'reactstrap';
 
 const Welcome = (props) => {
+    // welcome page displayed after logging in
     return (
         <div className="container mt-4">
             <Jumbotron>

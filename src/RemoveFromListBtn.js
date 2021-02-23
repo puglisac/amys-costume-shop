@@ -4,6 +4,7 @@ import { Button } from 'reactstrap';
 import { removeItemFromPullList } from './actions/users';
 
 const RemoveFromListBtn = ({ itemId }) => {
+    // a button to remove an item from a user's pull-list
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     const { users } = useSelector(st => st.users);
