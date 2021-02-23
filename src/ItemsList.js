@@ -50,7 +50,7 @@ const ItemsList = () => {
     }, [filterArray]);
 
     return (
-        <div className="container row">
+        <div className="container row ">
             {category_id || !Array.isArray(categories) ? null : <CategoryFilter categories={categories} filterArray={filterArray} setFilterArray={setFilterArray} />}
             <div className="col-md-6 col-lg m-4">
                 <h2>Items</h2>
