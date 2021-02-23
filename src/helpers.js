@@ -1,3 +1,5 @@
+// accepts an array, a page nunber, and the number of items per page.
+// returns an array
 function paginate(arr, pageNum, pageSize) {
     const size = Math.ceil(arr.length / pageSize);
     if (pageNum > size) {

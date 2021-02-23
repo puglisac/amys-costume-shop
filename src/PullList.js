@@ -17,6 +17,7 @@ const PullList = () => {
     const { currUser } = useSelector(st => st.currUser);
     const { users } = useSelector(st => st.users);
 
+    // handles pagination
     const [pageNumber, setPageNumber] = useState(1);
     const PAGESIZE = 15;
     let paginatedItems;
@@ -24,7 +25,7 @@ const PullList = () => {
         paginatedItems = paginate(users.pull_list, pageNumber, PAGESIZE);
     }
 
-
+    // removes an item from the user's pull_list
     const handleClick = () => {
         dispatch(removeItemFromPullList(token, email, "all"));
     };

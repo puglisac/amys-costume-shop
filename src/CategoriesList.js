@@ -15,6 +15,7 @@ const CategoriesList = () => {
     const { currUser } = useSelector(st => st.currUser);
     const dispatch = useDispatch();
 
+    // used for pagination
     const [pageNumber, setPageNumber] = useState(1);
     const PAGESIZE = 15;
     let paginatedCategories;

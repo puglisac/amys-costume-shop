@@ -18,6 +18,7 @@ const UsersList = () => {
     const { users } = useSelector(st => st.users);
     const dispatch = useDispatch();
 
+    // handles pagination
     const [pageNumber, setPageNumber] = useState(1);
     const PAGESIZE = 15;
     let paginatedUsers;

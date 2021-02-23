@@ -16,6 +16,7 @@ const UserForm = memo(({ toggle, user }) => {
     const { currUser } = useSelector(st => st.currUser);
 
     let initialState;
+    // set form data to user data if editing existing user
     if (user) {
 
         initialState = {
@@ -35,6 +36,7 @@ const UserForm = memo(({ toggle, user }) => {
         };
     }
 
+    // handles the form inputs
     const [formData, setFormData] = useState(initialState);
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,6 +46,7 @@ const UserForm = memo(({ toggle, user }) => {
         }));
     };
 
+    // on submit, edits or creates a user
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -55,7 +58,7 @@ const UserForm = memo(({ toggle, user }) => {
 
         if (user) {
             if (user.email == currUser.email && currUser.email != formData.email) {
-
+                // changes a user's email and logs out
                 dispatch(editUser(token, formData, user.email)).then(() => dispatch(logout())).catch(e => {
                     alert(e.response.data.message);
                 });
@@ -71,6 +74,7 @@ const UserForm = memo(({ toggle, user }) => {
         toggle();
     };
 
+    // deletes a user and redirects to /user page
     const deleteUser = useCallback(() => {
         dispatch(removeUser(token, user.email)).then(() => history.push("/users")).catch(e => alert(e));
     }, []);

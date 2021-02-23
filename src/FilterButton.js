@@ -13,7 +13,6 @@ const FilterButton = memo(({ category, add, remove }) => {
         setOutlined(!outlined);
     };
 
-
     return (<button className={outlined ? "btn btn-outline-primary m-2" : "btn btn-primary m-2"} onClick={addOrRemove}>{category.name}</button>);
 });
 

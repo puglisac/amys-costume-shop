@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const PaginationButtons = memo(({ page, setPage, size }) => {
+    // shows pagination buttons to navigate through lists
     const pageNumberArray = [];
 
     for (let p = page - 5; p <= page + 5; p++) {

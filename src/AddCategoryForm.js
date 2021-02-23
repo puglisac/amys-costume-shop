@@ -12,6 +12,7 @@ const AddCategoryForm = memo(({ toggle, category }) => {
     const dispatch = useDispatch();
     const { token } = useSelector(st => st.token);
     let initialState;
+    // set initial form data to existing category if editing category
     if (category) {
         initialState = {
 
@@ -24,6 +25,7 @@ const AddCategoryForm = memo(({ toggle, category }) => {
             description: ""
         };
     }
+    // handles input fields
     const [formData, setFormData] = useState(initialState);
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,6 +35,7 @@ const AddCategoryForm = memo(({ toggle, category }) => {
         }));
     };
 
+    // adds a category or edits a category, then toggles the modal close
     const handleSubmit = (e) => {
         e.preventDefault();
         if (category) {
@@ -44,6 +47,7 @@ const AddCategoryForm = memo(({ toggle, category }) => {
         toggle();
     };
 
+    // deletes a category and directs user to /catagories page
     const deleteCategory = useCallback(() => {
         dispatch(removeCategory(token, category.id)).then(() => history.push("/categories")).catch(e => alert(e));
     }, []);

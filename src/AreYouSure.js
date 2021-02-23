@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 
 const AreYouSure = memo((props) => {
-
+    // modal to confirm action
     const {
         buttonLabel,
         className,

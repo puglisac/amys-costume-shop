@@ -20,6 +20,7 @@ const AddItemForm = memo(({ toggle, item }) => {
         for (let category of item.categories) {
             categoriesArr.push(category.id);
         }
+        // sets the form data to existing item data if editing item
         initialState = {
 
             name: item.name || "",
@@ -39,7 +40,7 @@ const AddItemForm = memo(({ toggle, item }) => {
             categories: []
         };
     }
-
+    // handles form inputs
     const [formData, setFormData] = useState(initialState);
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,6 +50,7 @@ const AddItemForm = memo(({ toggle, item }) => {
         }));
     };
 
+    // handles the multiple select field
     const handleSelect = (e) => {
         const options = e.target.options;
         const value = [];
@@ -63,12 +65,11 @@ const AddItemForm = memo(({ toggle, item }) => {
         }
     };
 
-
+    // on submit adds or edits the item
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (item) {
-            console.log(formData);
             dispatch(editItem(token, formData, item.id)).catch(e => alert(e));
         }
         else {
@@ -76,7 +77,7 @@ const AddItemForm = memo(({ toggle, item }) => {
         }
         toggle();
     };
-
+    // delete's an item and redirects the user to the /items page
     const deleteItem = useCallback(() => {
         dispatch(removeItem(token, item.id)).then(() => history.push("/items")).catch(e => alert(e));
     }, []);

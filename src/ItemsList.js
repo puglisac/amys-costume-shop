@@ -20,6 +20,7 @@ const ItemsList = () => {
     const { category_id } = useParams();
     const dispatch = useDispatch();
 
+    // handles pagination
     const [pageNumber, setPageNumber] = useState(1);
     const PAGESIZE = 15;
     let paginatedItems;
@@ -35,6 +36,7 @@ const ItemsList = () => {
     }
     const [filterArray, setFilterArray] = useState(initialState);
 
+    // filters items by category
     const filterItems = () => {
         const categoryString = filterArray.join(",");
         dispatch(getAllItems(token, categoryString)).catch(e => alert(e));
