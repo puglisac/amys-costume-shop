@@ -21,9 +21,10 @@ const ItemsList = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const dispatch = useDispatch();
 
+    const PAGESIZE = 15;
     let paginatedItems;
     if (Array.isArray(items)) {
-        paginatedItems = paginate(items, pageNumber, 2);
+        paginatedItems = paginate(items, pageNumber, PAGESIZE);
     }
 
     const { categories } = useSelector(st => st.categories);
@@ -68,7 +69,7 @@ const ItemsList = () => {
                         {Array.isArray(items) ? paginatedItems.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
                     </tbody>
                 </Table>
-                {Array.isArray(items) ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(items.length / 2)} /> : null}
+                {Array.isArray(items) ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(items.length / PAGESIZE)} /> : null}
                 {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
             </div>
         </div>
