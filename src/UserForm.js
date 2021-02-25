@@ -33,6 +33,7 @@ const UserForm = memo(({ toggle, user }) => {
             first_name: "",
             last_name: "",
             password: "",
+            confirmPassword: "",
             is_admin: "false"
         };
     }
@@ -65,7 +66,11 @@ const UserForm = memo(({ toggle, user }) => {
                 });
             }
             else {
-                dispatch(editUser(token, formData, user.email)).catch(e => alert(e));
+                if (formData.password != formData.confirmPassword) {
+                    alert("Passwords do not match");
+                } else {
+                    dispatch(editUser(token, formData, user.email)).catch(e => alert(e));
+                }
             }
 
         }
@@ -117,6 +122,16 @@ const UserForm = memo(({ toggle, user }) => {
                         value={formData.password}
                         onChange={handleChange} />
                 </FormGroup>}
+                <FormGroup>
+                    <Label for="confirmPassword">Confirm</Label>
+                    <Input
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required />
+                </FormGroup>
                 {currUser.is_admin ? <FormGroup>
                     <Label for="is_admin">Admin?</Label>
                     <Input type="select" name="is_admin" id="is_admin" value={formData.is_admin} onChange={handleChange}>
@@ -128,7 +143,7 @@ const UserForm = memo(({ toggle, user }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
-            {currUser.email == user.email ? <ChangePassword user={user} /> : null}
+            {user && currUser.email == user.email ? <ChangePassword user={user} /> : null}
             {user ? <AreYouSure buttonLabel="Delete User" onClick={deleteUser} /> : null}
         </div>
     );

@@ -48,6 +48,7 @@ const ChangePasswordForm = memo(({ toggle, user }) => {
                     <Label for="oldPassword">Current Password</Label>
                     <Input
                         type="password"
+                        placeholder="Current Password"
                         name="oldPassword"
                         value={formData.oldPassword}
                         onChange={handleChange}
@@ -57,6 +58,7 @@ const ChangePasswordForm = memo(({ toggle, user }) => {
                     <Label for="newPassword">New Password</Label>
                     <Input
                         type="password"
+                        placeholder="New Password"
                         name="newPassword"
                         value={formData.newPassword}
                         onChange={handleChange}
@@ -66,6 +68,7 @@ const ChangePasswordForm = memo(({ toggle, user }) => {
                     <Label for="confirmPassword">Confirm</Label>
                     <Input
                         type="password"
+                        placeholder="Confirm Password"
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
