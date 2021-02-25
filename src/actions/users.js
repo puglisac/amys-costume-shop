@@ -26,7 +26,7 @@ function getCurrUser(email, token) {
             dispatch(gotCurrUser(data.user));
         } catch (e) {
             if (e.response.status == 404) {
-                throw ("No such item");
+                throw ("No such user");
             } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
@@ -45,7 +45,7 @@ function getUser(email, token) {
             dispatch(gotUser(data.user));
         } catch (e) {
             if (e.response.status == 404) {
-                throw ("No such item");
+                throw ("No such user");
             } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
@@ -64,9 +64,8 @@ function getAllUsers(token) {
             const { data } = await axios.get(`${INVENTORY_URL}users/`, config);
             dispatch(gotUser(data.users));
         } catch (e) {
-            if (e.response.status == 404) {
-                throw ("No such item");
-            } else if (e.response.status == 401) {
+
+            if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -122,7 +121,7 @@ function editUser(token, body, email) {
             dispatch(gotUser(data.user));
         } catch (e) {
             if (e.response.status == 404) {
-                throw ("No such item");
+                throw ("No such user");
             } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
@@ -140,9 +139,7 @@ function addUser(token, body) {
             const { data } = await axios.post(`${INVENTORY_URL}users/signup`, body, config);
             dispatch(gotNewUser(data.user));
         } catch (e) {
-            if (e.response.status == 404) {
-                throw ("No such item");
-            } else if (e.response.status == 401) {
+            if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -159,8 +156,31 @@ function removeUser(token, email) {
             await axios.delete(`${INVENTORY_URL}users/${email}`, config);
         } catch (e) {
             if (e.response.status == 404) {
-                throw ("No such item");
+                throw ("No such user");
             } else if (e.response.status == 401) {
+                throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
+        }
+    };
+}
+
+function changePassword(token, email, oldPassword, newPassword) {
+    return async function (dispatch) {
+        const body = { existing_password: oldPassword, new_password: newPassword };
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+
+        try {
+            const response = await axios.patch(`${INVENTORY_URL}users/${email}/change_password`, body, config);
+            dispatch(gotCurrUser(response.data.user));
+            if (response.status == 200) {
+                alert("Password successfully changed");
+            }
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such user");
+            } else if (e.response.status == 401 || e.response.status == 400) {
                 throw (e.response.data.message);
             } else {
                 throw (e);
@@ -189,4 +209,4 @@ function logout() {
     return { type: LOGOUT };
 }
 
-export { loginUser, gotToken, logout, addItemToPullList, getCurrUser, removeItemFromPullList, getUser, editUser, addUser, getAllUsers, removeUser };
+export { loginUser, gotToken, logout, addItemToPullList, getCurrUser, removeItemFromPullList, getUser, editUser, addUser, getAllUsers, removeUser, changePassword };

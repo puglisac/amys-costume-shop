@@ -6,6 +6,7 @@ import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } f
 import { getAllCategories } from './actions/categories';
 import { useHistory } from 'react-router-dom';
 import AreYouSure from "./AreYouSure";
+import ChangePassword from './ChangePassword';
 
 
 const UserForm = memo(({ toggle, user }) => {
@@ -127,6 +128,7 @@ const UserForm = memo(({ toggle, user }) => {
                     <Button color="primary" >Submit</Button>{' '}
                 </ModalFooter>
             </Form>
+            {currUser.email == user.email ? <ChangePassword user={user} /> : null}
             {user ? <AreYouSure buttonLabel="Delete User" onClick={deleteUser} /> : null}
         </div>
     );
