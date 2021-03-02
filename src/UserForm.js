@@ -122,7 +122,7 @@ const UserForm = memo(({ toggle, user }) => {
                         value={formData.password}
                         onChange={handleChange} />
                 </FormGroup>}
-                <FormGroup>
+                {user ? null : <FormGroup>
                     <Label for="confirmPassword">Confirm</Label>
                     <Input
                         type="password"
@@ -131,7 +131,7 @@ const UserForm = memo(({ toggle, user }) => {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         required />
-                </FormGroup>
+                </FormGroup>}
                 {currUser.is_admin ? <FormGroup>
                     <Label for="is_admin">Admin?</Label>
                     <Input type="select" name="is_admin" id="is_admin" value={formData.is_admin} onChange={handleChange}>
