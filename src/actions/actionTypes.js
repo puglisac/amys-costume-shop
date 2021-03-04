@@ -15,5 +15,4 @@ export const GET_USERS = "GET_USERS";
 export const ADD_USER = "ADD_USER";
 export const REMOVE_USER = "REMOVE_USER";
 // api url
-// export const INVENTORY_URL = "https://shop-inventory-manager.herokuapp.com/";
-export const INVENTORY_URL = "http://127.0.0.1:5000/";
+export const INVENTORY_URL = "https://shop-inventory-manager.herokuapp.com/";
