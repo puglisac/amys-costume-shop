@@ -22,7 +22,7 @@ const PullList = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const PAGESIZE = 15;
     let paginatedItems;
-    if (!Array.isArray(users)) {
+    if (users && !Array.isArray(users)) {
         paginatedItems = paginate(users.pull_list, pageNumber, PAGESIZE);
     }
 
@@ -35,7 +35,7 @@ const PullList = () => {
         dispatch(getUser(email, token)).catch(e => alert(e));
     }, []);
 
-    if (Array.isArray(users)) {
+    if (Array.isArray(users) || !users) {
         return <LoadingModal modal={true} />;
     } else {
         return (
