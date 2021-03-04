@@ -63,7 +63,6 @@ function getUser(email, token) {
     };
 }
 
-
 function getAllUsers(token) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
