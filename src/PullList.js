@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { paginate } from './helpers';
 import PaginationButtons from './PaginationButtons';
+import LoadingModal from './LoadingModal';
 
 
 const PullList = () => {
@@ -34,30 +35,34 @@ const PullList = () => {
         dispatch(getUser(email, token)).catch(e => alert(e));
     }, []);
 
-    return (
-        <div className="container row">
-            <div className="col-md-6 col-lg m-4">
-                <h2>My Items</h2>
-                {!Array.isArray(users) ? <p>Total: {users.pull_list.length}</p> : null}
-                <Table className="shadow p-2">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Item</th>
-                            <th>Location</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {!Array.isArray(users) ? paginatedItems.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
-                    </tbody>
-                </Table>
-                {!Array.isArray(users) && users.pull_list.length > PAGESIZE ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(users.pull_list.length / PAGESIZE)} /> : null}
-                {currUser.is_admin ? <Button className="btn-danger" onClick={handleClick}>Return All</Button> : null}
+    if (Array.isArray(users)) {
+        return <LoadingModal modal={true} />;
+    } else {
+        return (
+            <div className="container row">
+                <div className="col-md-6 col-lg m-4">
+                    <h2>My Items</h2>
+                    {<p>Total: {users.pull_list.length}</p>}
+                    <Table className="shadow p-2">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Item</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {paginatedItems.map(i => <PulledRow key={i.id} item={i} currUser={currUser} />)}
+                        </tbody>
+                    </Table>
+                    {users.pull_list.length > PAGESIZE ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(users.pull_list.length / PAGESIZE)} /> : null}
+                    {currUser.is_admin ? <Button className="btn-danger" onClick={handleClick}>Return All</Button> : null}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 

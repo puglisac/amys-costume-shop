@@ -29,15 +29,15 @@ const NavMenu = ({ userEmail, isAdmin }) => {
     };
 
     return (
-        <div>
+        <div className="nav-menu">
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/items">Items</NavLink>
+                        <NavLink className={window.location.pathname == "/items" ? "active" : null} href="/items">Items</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/categories">Categories</NavLink>
+                        <NavLink className={window.location.pathname == "/categories" ? "active" : null} href="/categories">Categories</NavLink>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>
@@ -45,13 +45,13 @@ const NavMenu = ({ userEmail, isAdmin }) => {
                         </DropdownToggle>
                         <DropdownMenu right>
                             <DropdownItem>
-                                <NavLink href={`/${userEmail}`}>My Info</NavLink>
+                                <NavLink className={window.location.pathname == `/${userEmail}` ? "active" : null} href={`/${userEmail}`}>My Info</NavLink>
                             </DropdownItem>
                             <DropdownItem>
-                                <NavLink href={`/pull-list/${userEmail}`}>My Pull List</NavLink>
+                                <NavLink className={window.location.pathname == `/pull-list/${userEmail}` ? "active" : null} href={`/pull-list/${userEmail}`}>My Pull List</NavLink>
                             </DropdownItem>
                             {isAdmin ? <DropdownItem>
-                                <NavLink href="/users">Manage Users</NavLink>
+                                <NavLink className={window.location.pathname == `/users` ? "active" : null} href="/users">Manage Users</NavLink>
                             </DropdownItem> : null}
                             <DropdownItem divider />
                             <DropdownItem>

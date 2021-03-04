@@ -1,7 +1,5 @@
-import React, { useEffect, useState, memo } from 'react';
-import { useSelector } from 'react-redux';
-import { GET_ITEMS } from './actions/actionTypes';
-import FormModal from './FormModal';
+import React, { memo } from 'react';
+
 
 const UserRow = memo(({ user }) => {
     // a row of user info

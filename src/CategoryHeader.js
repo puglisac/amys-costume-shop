@@ -16,6 +16,7 @@ const CategoryHeader = () => {
     useEffect(() => {
         dispatch(getOneCategory(token, category_id));
     }, []);
+
     return (
         <div className="container">
             <Jumbotron>

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getOneItem } from './actions/items';
 import FormModal from './FormModal';
 import { CardImg, CardBody, CardTitle, CardSubtitle, CardText, Card } from 'reactstrap';
+import LoadingModal from './LoadingModal';
 
 const ItemDetails = () => {
     // shows details about an item
@@ -23,20 +24,25 @@ const ItemDetails = () => {
     useEffect(() => {
         dispatch(getOneItem(token, item_id)).catch(e => alert(e));
     }, []);
-    return (
-        <div className="container row justify-content-center">
-            {!Array.isArray(items) ? <Card className="col-md-4 shadow mt-4">
-                <CardImg top width="100%" src={items.image_path || "/images/not-available.png"} alt="Card image cap" />
-                <CardBody>
-                    <CardTitle tag="h5">{items.name}</CardTitle>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">{items.location}</CardSubtitle>
-                    <CardText>{items.description}</CardText>
-                    <CardText>Quantity: {items.quantity}</CardText>
-                    <CardText>Categories: {categoriesNameArr.join(", ")}</CardText>
-                    {currUser.is_admin ? <FormModal buttonLabel="Edit Item" formType="item" item={items} /> : null}
-                </CardBody>
-            </Card> : "Loading..."}
-        </div>
-    );
+
+    if (Array.isArray(items)) {
+        return <LoadingModal modal={true} />;
+    } else {
+        return (
+            <div className="container row justify-content-center">
+                { <Card className="col-md-4 shadow mt-4">
+                    <CardImg top width="100%" src={items.image_path || "/images/not-available.png"} alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle tag="h5">{items.name}</CardTitle>
+                        <CardSubtitle tag="h6" className="mb-2 text-muted">{items.location}</CardSubtitle>
+                        <CardText>{items.description}</CardText>
+                        <CardText>Quantity: {items.quantity}</CardText>
+                        <CardText>Categories: {categoriesNameArr.join(", ")}</CardText>
+                        {currUser.is_admin ? <FormModal buttonLabel="Edit Item" formType="item" item={items} /> : null}
+                    </CardBody>
+                </Card>}
+            </div>
+        );
+    }
 };
 export default ItemDetails;

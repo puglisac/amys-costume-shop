@@ -3,10 +3,14 @@ import React, { useState, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { InputGroup, InputGroupAddon, Button, Input, Form } from 'reactstrap';
 import { loginUser } from './actions/users';
+import LoadingModal from './LoadingModal';
 
 const LoginForm = memo((props) => {
     // a form for logging in a user
     const dispatch = useDispatch();
+
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
 
     const initialState = {
         email: "",
@@ -21,14 +25,25 @@ const LoginForm = memo((props) => {
         }));
     };
 
+    const disableSubmit = () => {
+        document.querySelector(".submit").setAttribute("disabled", true);
+        toggle();
+    };
+
     function handleSubmit(e) {
         e.preventDefault();
+        disableSubmit();
         const { email, password } = formData;
-        dispatch(loginUser(email, password)).catch(e => alert(e));
+        dispatch(loginUser(email, password)).catch(e => {
+            alert(e);
+            document.querySelector(".submit").removeAttribute("disabled");
+            setModal(false);
+        });
     }
 
     return (
         <div className="container mt-4 col-md-4">
+            <LoadingModal toggle={toggle} modal={modal} />
             <Form onSubmit={handleSubmit}>
                 <InputGroup>
                     <Input placeholder="email"
@@ -44,7 +59,7 @@ const LoginForm = memo((props) => {
                         value={formData.password}
                         onChange={handleChange} />
                     <InputGroupAddon addonType="append">
-                        <Button color="primary"> Login </Button>
+                        <Button className="submit" color="primary"> Login </Button>
                     </InputGroupAddon>
                 </InputGroup>
             </Form>

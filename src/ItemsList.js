@@ -10,6 +10,7 @@ import { paginate } from './helpers';
 import './item_row.css';
 import CategoryFilter from './CategoryFilter';
 import PaginationButtons from './PaginationButtons';
+import LoadingModal from './LoadingModal';
 
 
 const ItemsList = () => {
@@ -19,6 +20,8 @@ const ItemsList = () => {
     const { items } = useSelector(st => st.items);
     const { category_id } = useParams();
     const dispatch = useDispatch();
+
+    const [modal, setModal] = useState(true);
 
     // handles pagination
     const [pageNumber, setPageNumber] = useState(1);
@@ -48,34 +51,38 @@ const ItemsList = () => {
             dispatch(getAllCategories(token)).catch(e => alert(e));
         }
     }, [filterArray]);
-
-    return (
-        <div className="container row ">
-            {category_id || !Array.isArray(categories) ? null : <CategoryFilter categories={categories} filterArray={filterArray} setFilterArray={setFilterArray} />}
-            <div className="col-md-6 col-lg m-4">
-                <h2>Items</h2>
-                {items ? <p>Total: {items.length}</p> : null}
-                <Table className=" shadow p-2">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Item</th>
-                            <th>Location</th>
-                            <th>Description</th>
-                            <th>Categories</th>
-                            <th>Quantity</th>
-                            <th>Pulled?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Array.isArray(items) ? paginatedItems.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />) : "Loading..."}
-                    </tbody>
-                </Table>
-                {Array.isArray(items) && items.length > PAGESIZE ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(items.length / PAGESIZE)} /> : null}
-                {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
+    if (!Array.isArray(items)) {
+        return <LoadingModal modal={true} />;
+    } else {
+        return (
+            <div className="container row ">
+                {category_id || !Array.isArray(categories) ? null : <CategoryFilter categories={categories} filterArray={filterArray} setFilterArray={setFilterArray} />}
+                <div className="col-md-6 col-lg m-4">
+                    <h2>Items</h2>
+                    {items ? <p>Total: {items.length}</p> : null}
+                    <Table className=" shadow p-2">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Item</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                                <th>Categories</th>
+                                <th>Quantity</th>
+                                <th>Pulled?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {paginatedItems.map(i => <ItemRow key={i.id} item={i} currUser={currUser} />)}
+                        </tbody>
+                    </Table>
+                    {items.length > PAGESIZE ? <PaginationButtons page={pageNumber} setPage={setPageNumber} size={Math.ceil(items.length / PAGESIZE)} /> : null}
+                    {currUser.is_admin && !category_id ? <FormModal buttonLabel="Add Item" formType="item" /> : null}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+
 };
 
 
