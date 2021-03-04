@@ -14,7 +14,7 @@ const CategoryHeader = () => {
     const { currUser } = useSelector(st => st.currUser);
 
     useEffect(() => {
-        dispatch(getOneCategory(token, category_id));
+        dispatch(getOneCategory(token, category_id)).catch(e => alert(e));
     }, []);
 
     return (

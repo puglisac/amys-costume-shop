@@ -30,7 +30,7 @@ function getOneCategory(token, category_id) {
             dispatch(gotCategories(data.category));
         } catch (e) {
             if (e.response.status == 404) {
-                throw ("No such item");
+                throw ("No such category");
             } else if (e.response.status == 401) {
                 throw (e.response.data.message);
             } else {

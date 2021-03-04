@@ -7,8 +7,8 @@ const LoadingModal = ({ modal }) => {
         <div>
             <Modal isOpen={modal} >
                 <ModalBody className="row justify-content-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
                     </div>
                 </ModalBody>
             </Modal>

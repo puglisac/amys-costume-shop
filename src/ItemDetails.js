@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams, useHistory } from 'react-router-dom';
 import { getOneItem } from './actions/items';
 import FormModal from './FormModal';
 import { CardImg, CardBody, CardTitle, CardSubtitle, CardText, Card } from 'reactstrap';
@@ -9,6 +9,7 @@ import LoadingModal from './LoadingModal';
 const ItemDetails = () => {
     // shows details about an item
     const dispatch = useDispatch();
+    const history = useHistory();
     const { currUser } = useSelector(st => st.currUser);
     const { item_id } = useParams();
     const { items } = useSelector(st => st.items);
@@ -22,7 +23,12 @@ const ItemDetails = () => {
     }
 
     useEffect(() => {
-        dispatch(getOneItem(token, item_id)).catch(e => alert(e));
+        dispatch(getOneItem(token, item_id)).catch(e => {
+            alert(e);
+            if (e == "No such item") {
+                history.push("/items");
+            };
+        });
     }, []);
 
     if (Array.isArray(items)) {
