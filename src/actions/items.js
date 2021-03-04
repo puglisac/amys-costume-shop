@@ -1,17 +1,31 @@
 import axios from "axios";
-import { INVENTORY_URL, GET_ITEMS, ADD_ITEM, REMOVE_ITEM } from "./actionTypes";
+import { INVENTORY_URL, GET_ITEMS, ADD_ITEM, LOGOUT } from "./actionTypes";
 
 function getAllItems(token, category_id) {
     return async function (dispatch) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
-
-        if (category_id) {
-            const { data } = await axios.get(`${INVENTORY_URL}items/?category_id=${category_id}`, config);
-            dispatch(gotItems(data.items));
-        } else {
-            const { data } = await axios.get(`${INVENTORY_URL}items/`, config);
-            dispatch(gotItems(data.items));
+        try {
+            if (category_id) {
+                const { data } = await axios.get(`${INVENTORY_URL}items/?category_id=${category_id}`, config);
+                dispatch(gotItems(data.items));
+            } else {
+                const { data } = await axios.get(`${INVENTORY_URL}items/`, config);
+                dispatch(gotItems(data.items));
+            }
+        } catch (e) {
+            if (e.response.status == 404) {
+                throw ("No such item");
+            } else if (e.response.status == 401) {
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
+            } else {
+                throw (e);
+            }
         }
+
     };
 }
 
@@ -26,7 +40,11 @@ function getOneItem(token, itemId) {
             if (e.response.status == 404) {
                 throw ("No such item");
             } else if (e.response.status == 401) {
-                throw (e.response.data.message);
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
             } else {
                 throw (e);
             }
@@ -44,7 +62,6 @@ function addItem(token, body) {
             dispatch(gotNewItem(data.item));
         } catch (e) {
             if (e.response.status == 401) {
-                throw (e.response.data.message);
             } else {
                 throw (e);
             }

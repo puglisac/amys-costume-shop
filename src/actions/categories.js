@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INVENTORY_URL, GET_CATEGORIES, ADD_CATEGORY, REMOVE_CATEGORY } from "./actionTypes";
+import { INVENTORY_URL, GET_CATEGORIES, ADD_CATEGORY, REMOVE_CATEGORY, LOGOUT } from "./actionTypes";
 
 function getAllCategories(token) {
     return async function (dispatch) {
@@ -12,7 +12,11 @@ function getAllCategories(token) {
             if (e.response.status == 404) {
                 throw ("No such item");
             } else if (e.response.status == 401) {
-                throw (e.response.data.message);
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
             } else {
                 throw (e);
             }
@@ -32,7 +36,11 @@ function getOneCategory(token, category_id) {
             if (e.response.status == 404) {
                 throw ("No such category");
             } else if (e.response.status == 401) {
-                throw (e.response.data.message);
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
             } else {
                 throw (e);
             }

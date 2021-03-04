@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_TOKEN, LOGOUT, INVENTORY_URL, GET_CURR_USER, GET_USERS, ADD_USER, REMOVE_USER } from "./actionTypes";
+import { GET_TOKEN, LOGOUT, INVENTORY_URL, GET_CURR_USER, GET_USERS, ADD_USER } from "./actionTypes";
 
 function loginUser(email, password) {
     return async function (dispatch) {
@@ -28,7 +28,11 @@ function getCurrUser(email, token) {
             if (e.response.status == 404) {
                 throw ("No such user");
             } else if (e.response.status == 401) {
-                throw (e.response.data.message);
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
             } else {
                 throw (e);
             }
@@ -47,7 +51,11 @@ function getUser(email, token) {
             if (e.response.status == 404) {
                 throw ("No such user");
             } else if (e.response.status == 401) {
-                throw (e.response.data.message);
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
             } else {
                 throw (e);
             }
@@ -66,7 +74,11 @@ function getAllUsers(token) {
         } catch (e) {
 
             if (e.response.status == 401) {
-                throw (e.response.data.message);
+                if (e.response.data.msg && e.response.data.msg == "Token has expired") {
+                    alert("Please log back in");
+                    dispatch({ type: LOGOUT });
+                }
+                else throw (e.response.data.message);
             } else {
                 throw (e);
             }
