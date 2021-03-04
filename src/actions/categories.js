@@ -9,9 +9,7 @@ function getAllCategories(token) {
             const { data } = await axios.get(`${INVENTORY_URL}categories/`, config);
             dispatch(gotCategories(data.categories));
         } catch (e) {
-            if (e.response.status == 404) {
-                throw ("No such item");
-            } else if (e.response.status == 401) {
+            if (e.response.status == 401) {
                 if (e.response.data.msg && e.response.data.msg == "Token has expired") {
                     alert("Please log back in");
                     dispatch({ type: LOGOUT });
@@ -21,7 +19,6 @@ function getAllCategories(token) {
                 throw (e);
             }
         }
-
     };
 }
 

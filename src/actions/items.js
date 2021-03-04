@@ -13,9 +13,7 @@ function getAllItems(token, category_id) {
                 dispatch(gotItems(data.items));
             }
         } catch (e) {
-            if (e.response.status == 404) {
-                throw ("No such item");
-            } else if (e.response.status == 401) {
+            if (e.response.status == 401) {
                 if (e.response.data.msg && e.response.data.msg == "Token has expired") {
                     alert("Please log back in");
                     dispatch({ type: LOGOUT });
@@ -25,10 +23,8 @@ function getAllItems(token, category_id) {
                 throw (e);
             }
         }
-
     };
 }
-
 
 function getOneItem(token, itemId) {
     return async function (dispatch) {
