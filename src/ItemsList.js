@@ -85,6 +85,4 @@ const ItemsList = () => {
 
 };
 
-
-
 export default ItemsList;
