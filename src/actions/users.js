@@ -5,6 +5,9 @@ import { errorHandler } from "./errorHandler";
 function loginUser(email, password) {
     return async function (dispatch) {
         try {
+            const now = new Date().getTime();
+            window.localStorage.setItem('setTime', now);
+
             const { data } = await axios.post(`${INVENTORY_URL}users/login`, { email, password });
             dispatch(gotToken(data.access_token));
             dispatch(getCurrUser(email, data.access_token));
