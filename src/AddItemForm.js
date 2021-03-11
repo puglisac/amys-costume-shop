@@ -72,7 +72,7 @@ const AddItemForm = memo(({ toggle, item }) => {
             dispatch(editItem(token, formData, item.id)).catch(e => alert(e));
         }
         else {
-            dispatch(addItem(token, data)).catch(e => alert(e));
+            dispatch(addItem(token, formData)).catch(e => alert(e));
         }
         toggle();
     };
