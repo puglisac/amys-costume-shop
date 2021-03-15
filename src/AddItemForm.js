@@ -68,7 +68,7 @@ const AddItemForm = memo(({ toggle, item }) => {
         e.preventDefault();
         const data = new FormData();
         const file = document.getElementById("item-image");
-        data.append('file', file.files[0]);
+        data.append('image', file.files[0]);
         data.append('json', JSON.stringify(formData));
         if (item) {
             dispatch(editItem(token, formData, item.id)).catch(e => alert(e));
