@@ -73,7 +73,7 @@ const AddItemForm = memo(({ toggle, item }) => {
         }
         data.append('json', JSON.stringify(formData));
         if (item) {
-            dispatch(editItem(token, formData, item.id)).catch(e => alert(e));
+            dispatch(editItem(token, data, item.id)).catch(e => alert(e));
         }
         else {
             dispatch(addItem(token, data)).catch(e => alert(e));

@@ -52,7 +52,13 @@ function addItem(token, body) {
 
 function editItem(token, body, itemId) {
     return async function (dispatch) {
-        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json",
+                "Content-Type": 'multipart/form-data'
+            }
+        };
         try {
             const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
             dispatch(gotItems(data.item));
