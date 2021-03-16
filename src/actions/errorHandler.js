@@ -8,7 +8,7 @@ export const errorHandler = (e, dispatch, cat) => {
             alert("Please log back in");
             dispatch({ type: LOGOUT });
         }
-        else throw new Error(e.response.data.message);
+        else alert(e.response.data.message);
     } else if (e.response) {
         throw new Error(e.response.data.message);
     } else {
