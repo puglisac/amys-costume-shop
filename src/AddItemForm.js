@@ -27,6 +27,7 @@ const AddItemForm = memo(({ toggle, item }) => {
             location: item.location || "",
             description: item.description || "",
             quantity: item.quantity || "",
+            image_path: item.image_path || "",
             categories: categoriesArr || []
         };
     } else {
@@ -35,6 +36,7 @@ const AddItemForm = memo(({ toggle, item }) => {
             location: "",
             description: "",
             quantity: "",
+            image_path: "",
             categories: []
         };
     }
@@ -76,7 +78,7 @@ const AddItemForm = memo(({ toggle, item }) => {
             dispatch(editItem(token, data, item.id)).catch(e => alert(e));
         }
         else {
-            dispatch(addItem(token, data)).catch(e => alert(e));
+            dispatch(addItem(token, formData)).catch(e => alert(e));
         }
         toggle();
     };
@@ -138,9 +140,10 @@ const AddItemForm = memo(({ toggle, item }) => {
                     <Label for="image_path">Image</Label>
                     <Input
                         id="item-image"
-                        type="file"
                         placeholder="Item image"
-                        name="image_path" />
+                        name="image_path"
+                        value={formData.image_path}
+                        onChange={handleChange} />
                 </FormGroup>
                 <ModalFooter>
                     <Button color="primary" >Submit</Button>{' '}

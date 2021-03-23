@@ -14,6 +14,6 @@ export const errorHandler = (e, dispatch, cat) => {
             throw new Error(e.response.data.message);
     }
     else {
-        throw new Error(e);
+        throw e;
     }
 };

@@ -35,9 +35,7 @@ function addItem(token, body) {
     return async function (dispatch) {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-                "Content-Type": 'multipart/form-data'
+                Authorization: `Bearer ${token}`
             }
         };
 
