@@ -19,7 +19,7 @@ const UserInfo = () => {
     useEffect(() => {
         dispatch(getUser(user_email, token)).catch((e) => {
             alert(e);
-            if (e == "No such user") {
+            if (e == "Error: No such user") {
                 history.push("/users");
             };
         });
