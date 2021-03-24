@@ -31,37 +31,49 @@ function getOneItem(token, itemId) {
     };
 }
 
-function addItem(token, body) {
+function addItem(token, body, file) {
     return async function (dispatch) {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-                "Content-Type": 'multipart/form-data'
+                Authorization: `Bearer ${token}`
             }
         };
 
         try {
             const { data } = await axios.post(`${INVENTORY_URL}items/`, body, config);
-            dispatch(gotNewItem(data.item));
+            const addedItem = data.item;
+            if (file) {
+                const formData = new FormData();
+                formData.append('image', file);
+                const { data } = await axios.post(`${INVENTORY_URL}items/${addedItem.id}add_image`, formData, config);
+                dispatch(gotNewItem(data.item));
+            } else {
+                dispatch(gotNewItem(addedItem));
+            }
         } catch (e) {
             errorHandler(e, dispatch, "item");
         }
     };
 }
 
-function editItem(token, body, itemId) {
+function editItem(token, body, file, itemId) {
     return async function (dispatch) {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: "application/json",
-                "Content-Type": 'multipart/form-data'
+                Authorization: `Bearer ${token}`
             }
         };
         try {
             const { data } = await axios.patch(`${INVENTORY_URL}items/${itemId}`, body, config);
-            dispatch(gotItems(data.item));
+            const editedItem = data.item;
+            if (file) {
+                const formData = new FormData();
+                formData.append('image', file);
+                const { data } = await axios.post(`${INVENTORY_URL}items/${editedItem.id}add_image`, formData, config);
+                dispatch(gotNewItem(data.item));
+            } else {
+                dispatch(gotNewItem(editedItem));
+            }
         } catch (e) {
             errorHandler(e, dispatch, "item");
         }

@@ -68,17 +68,15 @@ const AddItemForm = memo(({ toggle, item }) => {
     // on submit adds or edits the item
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData();
         const file = document.getElementById("item-image");
-        if (file.files[0]) {
-            data.append('image', file.files[0]);
-        }
-        data.append('json', JSON.stringify(formData));
+        // if (file.files[0]) {
+        //     data.append('image', file.files[0]);
+        // }
         if (item) {
-            dispatch(editItem(token, data, item.id)).catch(e => alert(e));
+            dispatch(editItem(token, formData, file.files[0], item.id)).catch(e => alert(e));
         }
         else {
-            dispatch(addItem(token, formData)).catch(e => alert(e));
+            dispatch(addItem(token, formData, file.files[0])).catch(e => alert(e));
         }
         toggle();
     };
