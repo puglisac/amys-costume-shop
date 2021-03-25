@@ -137,6 +137,7 @@ const AddItemForm = memo(({ toggle, item }) => {
                     <Input
                         id="item-image"
                         type="file"
+                        accept="image/*"
                         placeholder="Item image"
                         name="image_path" />
                 </FormGroup>
