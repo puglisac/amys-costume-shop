@@ -3,7 +3,7 @@ import React, { useEffect, useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, editItem, removeItem } from './actions/items';
 import { useHistory } from 'react-router-dom';
-import { ModalFooter, InputGroupAddon, Button, Input, Form, FormGroup, Label } from 'reactstrap';
+import { ModalFooter, FormText, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { getAllCategories } from './actions/categories';
 import AreYouSure from './AreYouSure';
 
