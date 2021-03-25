@@ -45,7 +45,7 @@ function addItem(token, body, file) {
             if (file) {
                 const formData = new FormData();
                 formData.append('image', file);
-                const { data } = await axios.post(`${INVENTORY_URL}items/${addedItem.id}add_image`, formData, config);
+                const { data } = await axios.post(`${INVENTORY_URL}items/${addedItem.id}/add_image`, formData, config);
                 dispatch(gotNewItem(data.item));
             } else {
                 dispatch(gotNewItem(addedItem));
@@ -69,10 +69,10 @@ function editItem(token, body, file, itemId) {
             if (file) {
                 const formData = new FormData();
                 formData.append('image', file);
-                const { data } = await axios.post(`${INVENTORY_URL}items/${editedItem.id}add_image`, formData, config);
-                dispatch(gotNewItem(data.item));
+                const { data } = await axios.post(`${INVENTORY_URL}items/${editedItem.id}/add_image`, formData, config);
+                dispatch(gotItems(data.item));
             } else {
-                dispatch(gotNewItem(editedItem));
+                dispatch(gotItems(editedItem));
             }
         } catch (e) {
             errorHandler(e, dispatch, "item");
