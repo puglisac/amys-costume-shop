@@ -140,6 +140,9 @@ const AddItemForm = memo(({ toggle, item }) => {
                         accept="image/*"
                         placeholder="Item image"
                         name="image_path" />
+                    <FormText color="muted">
+                        select an image file for this item
+                    </FormText>
                 </FormGroup>
                 <ModalFooter>
                     <Button color="primary" >Submit</Button>{' '}
