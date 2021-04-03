@@ -78,7 +78,7 @@ const AddItemForm = memo(({ toggle, item }) => {
         }
         toggle();
     };
-    // delete's an item and redirects the user to the /items page
+    // deletes an item and redirects the user to the /items page
     const deleteItem = useCallback(() => {
         dispatch(removeItem(token, item.id)).then(() => history.push("/items")).catch(e => alert(e));
     }, []);
